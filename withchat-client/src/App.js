@@ -1,10 +1,11 @@
 // import logo from "./logo.svg";
 import "./App.css";
 import ChattingRoomList from "./components/chattingRoomList/chattingRoomList";
+import DirectMessageList from "./components/directMessageList/directMessageList";
 
 function App() {
   return (
-    <div>
+    <div style={{ display: "flex" }}>
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -21,6 +22,7 @@ function App() {
         
       </header> */}
       <ChattingRoomList />
+      <DirectMessageList />
     </div>
   );
 }
