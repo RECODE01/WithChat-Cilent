@@ -1,0 +1,39 @@
+.wrapper {
+  padding: 12px;
+  width: 72px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #202225;
+}
+
+.DmList {
+  width: 60px;
+  height: 60px;
+  background-color: skyblue;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.line {
+  width: 100%;
+  border: 1px solid gray;
+  margin: 10px 0px;
+}
+
+.chattingList {
+  width: 60px;
+  height: 60px;
+  background-color: beige;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.addFindChat {
+  border-radius: 50%;
+}

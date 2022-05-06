@@ -10,10 +10,13 @@ export default function ChattingRoomList() {
   return (
     <>
       <div className="wrapper">
-        <div className="me"> </div>
+        <img className="DmList" src="/LOGO_WC.png" alt="DM 리스트" />
+        <div className="line"></div>
         {chattingList.map((el) => (
           <div className="chattingList">{el.name}</div>
         ))}
+        <div className="chattingList addFindChat"> ✚ </div>
+        <div className="chattingList addFindChat"> ◉ </div>
       </div>
     </>
   );
