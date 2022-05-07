@@ -1,5 +1,6 @@
 // import logo from "./logo.svg";
 import "./App.css";
+import ChatterList from "./components/chatterList/chatterList";
 import ChattingRoomList from "./components/chattingRoomList/chattingRoomList";
 import DirectMessageList from "./components/directMessageList/directMessageList";
 
@@ -23,6 +24,20 @@ function App() {
       </header> */}
       <ChattingRoomList />
       <DirectMessageList />
+      <div
+        style={{
+          width: "100%",
+          backgroundColor: "#36393F",
+          color: "white",
+          textAlign: "center",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        채팅방
+      </div>
+      <ChatterList />
     </div>
   );
 }

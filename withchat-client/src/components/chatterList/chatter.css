@@ -1,0 +1,15 @@
+.OnOffCategory {
+  color: white;
+  font-size: small;
+  margin-bottom: 10px;
+}
+
+.OffChatter {
+  color: gray;
+}
+
+.dmBox2 {
+  width: 240px;
+  height: calc(100vh - 10px);
+  overflow: scroll;
+}
