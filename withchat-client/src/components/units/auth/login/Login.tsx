@@ -26,25 +26,25 @@ export default function Login() {
     
     return (
         <S.AuthContentsWrapper>
-        <S.AuthContentsTitle>
-            Welcome To <span>With Chat!!</span>
-        </S.AuthContentsTitle>
-        <S.AuthContentsSubTitle>Please log in to use with chat.</S.AuthContentsSubTitle>
-        <form onSubmit={
-            handleSubmit && 
-            onSubmitLogin && 
-            handleSubmit(onSubmitLogin)
-        }>
-            <S.InputBox>
-                <input autoComplete='off' type="text" placeholder="이메일을 입력하세요" {...register("email",{ required: true })} />
-                {errors.email && <ErrorFont>이메일을 한 글자 이상입력해주세요.</ErrorFont>}
-            </S.InputBox>
-            <S.InputBox>
-                <input autoComplete='off' type="password" placeholder="비밀번호를 입력하세요" {...register("password",{ required: true })} />
-                {errors.password && <ErrorFont>비밀번호를 한 글자 이상입력해주세요.</ErrorFont>}
-            </S.InputBox>
-            <S.AuthButton type='submit'>로그인</S.AuthButton>
-        </form>
-    </S.AuthContentsWrapper>
+            <S.AuthContentsTitle>
+                Welcome To <span>With Chat!!</span>
+            </S.AuthContentsTitle>
+            <S.AuthContentsSubTitle>Please log in to use with chat.</S.AuthContentsSubTitle>
+            <form onSubmit={
+                handleSubmit && 
+                onSubmitLogin && 
+                handleSubmit(onSubmitLogin)
+            }>
+                <S.InputBox>
+                    <input autoComplete='off' type="text" placeholder="이메일을 입력하세요" {...register("email",{ required: true })} />
+                    {errors.email && <ErrorFont>이메일을 한 글자 이상입력해주세요.</ErrorFont>}
+                </S.InputBox>
+                <S.InputBox>
+                    <input autoComplete='off' type="password" placeholder="비밀번호를 입력하세요" {...register("password",{ required: true })} />
+                    {errors.password && <ErrorFont>비밀번호를 한 글자 이상입력해주세요.</ErrorFont>}
+                </S.InputBox>
+                <S.AuthButton type='submit'>로그인</S.AuthButton>
+            </form>
+        </S.AuthContentsWrapper>
     )
 }

@@ -20,7 +20,7 @@ export default function SignUp() {
         }).then((res) => {
             if(res.status === 201)
             console.log(res)
-            alert("회원가입 완료")
+            alert("인증 메일이 발송되었습니다.")
         }).catch((reason: any) => {
             alert(reason.response.message)
         });

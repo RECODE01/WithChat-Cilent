@@ -44,7 +44,7 @@ export const AuthController = styled.div`
             font-size: 20px;
             transition: .4s;
             &:hover{
-                color:#2fa0f7;
+                color:#16a8f1;
             }
             &:after{
                 content:  "|";
@@ -63,7 +63,7 @@ export const AuthContentsTitle = styled.h2`
    font-size: 40px;
    padding: 30px 0;
    & >span{
-       color:#2fa0f7
+       color:#16a8f1
    }
 `
 
@@ -90,7 +90,7 @@ export const InputBox = styled.div`
         transition:.4s ease-in-out;
         padding:10px 15px;
         &:focus{
-            border-color: #2fa0f7;
+            border-color: #16a8f1;
         }
     }
     & label{
@@ -114,14 +114,14 @@ export const AuthManagementBox = styled.div`
         margin-right: 15px;
         transition: 0.4s;
         &:hover{
-            color: #2fa0f7;
+            color: #16a8f1;
         }
     }
 `
 
 export const AuthButton = styled.button`
     color:#fff;
-    background-color: #2fa0f7;
+    background-color: #16a8f1;
     padding: 10px 30px;
     border-radius: 30px;
     margin: 40px 10px 0 0;
