@@ -1,4 +1,4 @@
-import LoginPage from './pages/login'
+import AuthPage from './pages/auth'
 import './App.css'
 import { globalStyles } from './styles/GlobalStyles'
 import { Global } from '@emotion/react'
@@ -12,7 +12,7 @@ export default function App () {
         <Global styles={globalStyles} />
         <Routes>
            <Route path="/"  element={<MainPage />}  />
-           <Route path="/login"  element={<LoginPage />}  />
+           <Route path="/auth"  element={<AuthPage />}  />
         </Routes>
       </BrowserRouter>
     </>
