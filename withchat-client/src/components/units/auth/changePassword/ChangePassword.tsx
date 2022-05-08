@@ -30,6 +30,6 @@ export default function ChangePassword() {
                 </S.InputBox>
                 <S.AuthButton type='submit'>비밀번호 변경하기</S.AuthButton>
             </form>
-            </S.AuthContentsWrapper>
+        </S.AuthContentsWrapper>
     );
 }
