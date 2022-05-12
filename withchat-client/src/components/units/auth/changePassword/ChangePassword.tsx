@@ -1,6 +1,4 @@
-// import axios from "axios";
 import { useForm } from "react-hook-form";
-import { ErrorFont } from "styles/FormsStyles";
 import * as S from "../Auth.Styles";
 import { ILoginFormData } from "../Auth.Types";
 
@@ -25,8 +23,13 @@ export default function ChangePassword() {
                 handleSubmit(onSubmitChangePassword)
             }>
                 <S.InputBox>
-                    <input autoComplete='off' type="text" placeholder="변경할 비밀번호를 입력해주세요." {...register("password",{ required: true })} />
-                    {errors.password && <ErrorFont>비밀번호를 한 글자 이상입력해주세요.</ErrorFont>}
+                <S.AuthInput 
+                        errorStatus={errors.password}
+                        autoComplete='off' 
+                        type="text" 
+                        placeholder={errors.password ? "🚫  한 글자 이상 입력해주세요." : "변경하여 사용할 비밀번호를 입력하세요."} 
+                        {...register("name",{ required: true })} 
+                    />
                 </S.InputBox>
                 <S.AuthButton type='submit'>비밀번호 변경하기</S.AuthButton>
             </form>

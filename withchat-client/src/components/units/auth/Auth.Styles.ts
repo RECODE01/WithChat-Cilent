@@ -1,6 +1,10 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
+interface IPropsAuthInput {
+    errorStatus:any
+}
+
 const AuthMountAnimation = keyframes`
     0%{
         opacity: 0;
@@ -21,7 +25,48 @@ export const AuthContainer = styled.div`
     height: 100vh;
     overflow-x: hidden;
     position: relative;
-    background: url('./img/background_img/login.jpg') no-repeat center/cover;
+    background: url('../img/background_img/login.jpg') no-repeat center/cover;
+`
+
+export const AuthInput = styled.input`
+    @keyframes authInputAnimation {
+        from,
+        to {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+            -webkit-transform: translate3d(-10px, 0, 0);
+            transform: translate3d(-5px, 0, 0);
+        }
+
+        20%,
+        40%,
+        60%,
+        80% {
+            -webkit-transform: translate3d(10px, 0, 0);
+            transform: translate3d(5px, 0, 0);
+        }
+    }
+    width: 100%;
+    border-radius: 12px;
+    font-size: 15px;
+    color:rgba(255,255,255,0.8);
+    border:1px solid #ccc;
+    transition:.4s ease-in-out;
+    padding:10px 15px;
+    animation: ${(props:IPropsAuthInput) => props.errorStatus && `authInputAnimation 1s ease-in-out 0s 1 forwards`};
+    &:focus{
+        border-color: #16a8f1;
+    }
+    &::placeholder{
+        color:${(props:IPropsAuthInput) => props.errorStatus && "rgb(194, 41, 33)"};
+    };
+    
 `
 export const AuthWrapper = styled.div`
     width:100%;
@@ -38,7 +83,7 @@ export const AuthWrapper = styled.div`
 
 export const AuthController = styled.div`
     padding-top: 50px;
-    & > button{
+    & button{
             color: #fff;
             opacity: 0.7;
             font-size: 20px;
@@ -82,16 +127,7 @@ export const InputBox = styled.div`
         margin-bottom: 0;
     }
     & input {
-        width: 100%;
-        border-radius: 12px;
-        font-size: 15px;
-        color:rgba(255,255,255,0.8);
-        border:1px solid #ccc;
-        transition:.4s ease-in-out;
-        padding:10px 15px;
-        &:focus{
-            border-color: #16a8f1;
-        }
+        
     }
     & label{
         display: block;

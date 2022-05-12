@@ -12,7 +12,3 @@ export interface ISignUpFormData{
     nickName?:string
 }
 
-export interface IPropsAuthUI{
-    isAuthComponents:string
-    onClickAuthChange:(state:string) => () => void
-}

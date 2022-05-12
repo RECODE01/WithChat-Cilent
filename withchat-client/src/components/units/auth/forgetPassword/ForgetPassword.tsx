@@ -1,14 +1,25 @@
-// import axios from "axios";
+import axios from "axios";
 import { useForm } from "react-hook-form";
-import { ErrorFont } from "styles/FormsStyles";
 import * as S from "../Auth.Styles";
 import { ILoginFormData } from "../Auth.Types";
 
 export default function FotgetPassword() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmitForgetPassword = (data : ILoginFormData) => {
-        console.log(data)
-        alert("관련 메일이 발송되었습니다.")
+        const variables = {
+            email: data.email,
+            name: data.name,
+        } 
+        axios.post("https://backend.withchat.site/users/resetPassword/sendMail", variables, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then((res) => {
+            if(res.status === 204)
+            alert("비밀번호 변경을 위한 인증 메일이 발송되었습니다.")
+        }).catch((reason: any) => {
+            alert(reason.response.data.message)
+        });
     };
     
     return (
@@ -25,12 +36,22 @@ export default function FotgetPassword() {
                 handleSubmit(onSubmitForgetPassword)
             }>
                 <S.InputBox>
-                    <input autoComplete='off' type="text" placeholder="비밀번호를 변경하려는 이메일을 입력하세요." {...register("email",{ required: true })} />
-                    {errors.email && <ErrorFont>이메일을 한 글자 이상입력해주세요.</ErrorFont>}
+                    <S.AuthInput 
+                        errorStatus={errors.email}
+                        autoComplete='off' 
+                        type="text" 
+                        placeholder={errors.email ? "🚫  한 글자 이상 입력해주세요." : "비밀번호를 변경하려는 이메일을 입력하세요."} 
+                        {...register("email",{ required: true })} 
+                    />
                 </S.InputBox>
                 <S.InputBox>
-                    <input autoComplete='off' type="text" placeholder="이메일에서 사용중인 이름을 입력하세요." {...register("name",{ required: true })} />
-                    {errors.name && <ErrorFont>닉네임을 한 글자 이상입력해주세요.</ErrorFont>}
+                    <S.AuthInput 
+                        errorStatus={errors.name}
+                        autoComplete='off' 
+                        type="text" 
+                        placeholder={errors.name ? "🚫  한 글자 이상 입력해주세요." : "이메일에서 사용중인 이름을 입력하세요."} 
+                        {...register("name",{ required: true })} 
+                    />
                 </S.InputBox>
                 <S.AuthButton type='submit'>메일 보내기</S.AuthButton>
             </form>
