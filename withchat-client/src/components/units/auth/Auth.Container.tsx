@@ -1,18 +1,19 @@
 
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import AuthUI from './Auth.Presenter';
 
-export default function Auth() {
-    const [isAuthComponents, setIsAuthComponents] = useState("login")
-
-    const onClickAuthChange = (state:string) => () => {
-        setIsAuthComponents(state)
-    }
-
+const Auth = () => {
+    const navigate = useNavigate();
+    const location = useLocation()
+    useEffect(() => {   
+        if(location.pathname === '/auth')
+        navigate('login')
+    },[])
+    
     return (
-            <AuthUI 
-                isAuthComponents={isAuthComponents}
-                onClickAuthChange={onClickAuthChange}
-            />
+            <AuthUI />
     )
 }
+
+export default Auth

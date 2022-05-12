@@ -12,7 +12,7 @@ export default function App () {
         <Global styles={globalStyles} />
         <Routes>
            <Route path="/"  element={<MainPage />}  />
-           <Route path="/auth"  element={<AuthPage />}  />
+           <Route path="/auth/*"  element={<AuthPage />}  />
         </Routes>
       </BrowserRouter>
     </>
