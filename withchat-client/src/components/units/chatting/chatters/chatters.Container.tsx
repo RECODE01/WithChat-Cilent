@@ -18,7 +18,7 @@ export default function Chatters() {
   ];
   return (
     <>
-      <S.DmContainer>
+      <S.DmWrapper>
         <S.DmBox>
           <S.OnOffCategory>
             Online - {ChatterList.filter((el) => el.Online === true).length}명
@@ -43,7 +43,7 @@ export default function Chatters() {
             </S.DmItemOff>
           ))}
         </S.DmBox>
-      </S.DmContainer>
+      </S.DmWrapper>
     </>
   );
 }

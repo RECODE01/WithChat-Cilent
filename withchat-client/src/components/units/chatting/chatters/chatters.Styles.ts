@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const DmContainer = styled.div`
+export const DmWrapper = styled.div`
   width: 240px;
   height: 100vh;
   padding: 10px;

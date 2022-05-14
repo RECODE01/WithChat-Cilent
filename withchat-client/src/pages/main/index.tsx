@@ -1,10 +1,12 @@
 import Chatters from "components/units/chatting/chatters/chatters.Container";
+import ChattingRoomList from "components/units/chatting/chattingRooms/chattingRooms.Container";
+import DirectMessageList from "components/units/chatting/dmList/directMessageList.Container";
 
 export default function MainPage() {
   return (
     <div style={{ display: "flex" }}>
-      {/* <ChattingRoomList />
-        <DirectMessageList /> */}
+      <ChattingRoomList />
+      <DirectMessageList />
       <div
         style={{
           width: "100%",
