@@ -7,6 +7,7 @@ import MainPage from './pages/main'
 import GiphyPage from 'pages/giphy'
 import UserMenuPage from 'pages/userMenu'
 
+
 export default function App () {
   return (
     <>
@@ -16,7 +17,7 @@ export default function App () {
            <Route path="/"  element={<MainPage />}  />
            <Route path="/auth/*"  element={<AuthPage />}  />
            <Route path="/giphy"  element={<GiphyPage />}  />
-           <Route path="/userMenu"  element={<UserMenuPage />}  />
+           <Route path="/userMenu"  element={<UserMenuPage/>}  />
         </Routes>
       </BrowserRouter>
     </>

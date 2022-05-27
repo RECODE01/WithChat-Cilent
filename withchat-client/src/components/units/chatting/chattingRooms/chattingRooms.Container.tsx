@@ -1,4 +1,4 @@
-import * as S from "./ChattingRoom.Styles";
+import * as S from "./chattingRoom.Styles";
 
 export default function ChattingRoomList() {
   const chattingList = [

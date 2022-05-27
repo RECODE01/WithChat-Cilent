@@ -1,27 +1,25 @@
 import axios from "axios";
 import UserMenu from "components/units/userMenu/userMenu.Container";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-export default function UserMenuPage(){
-    const [accessToken, setAccessToken]= useState<string| null>()
+export default function UserMenuPage(props: any){
+    // const [accessToken, setAccessToken]= useState<string| null>()
+    
     useEffect(()=>{
-        const getAccessToken=()=>{
-            const newAccessToken=localStorage.getItem('accessToken')
-            setAccessToken(newAccessToken)
-        }
-        getAccessToken()
+        
         const fetchUserLoggedIn=()=>{
-            axios.post(`https://backend.withchat.site/users/loggedInUser`,{
+            const newAccessToken=localStorage.getItem('accessToken')
+            axios.post(`https://backend.withchat.site/users/loggedInUser`, {},{
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${accessToken}`
+                    Authorization: `Bearer ${newAccessToken}`,
+                    
                    },
             }).then((res)=>{
-                if(res.status === 200) console.log(res)
+                if(res.status === 201) console.log(res.data)
             }).catch((err)=>console.log(err))
+            console.log(newAccessToken)
         }
-        
-        console.log(accessToken)
         fetchUserLoggedIn()
     },[])
     return <UserMenu />
