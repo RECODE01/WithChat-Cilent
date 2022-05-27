@@ -2,16 +2,24 @@ import AuthPage from './pages/auth'
 import './App.css'
 import { globalStyles } from './styles/GlobalStyles'
 import { Global } from '@emotion/react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import MainPage from './pages/main'
+import { useEffect } from 'react'
 import GiphyPage from 'pages/giphy'
 import UserMenuPage from 'pages/userMenu'
 
 
 export default function App () {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(!localStorage.getItem("accessToken")){
+      navigate('/auth')
+    }
+  },[])
+
   return (
     <>
-      <BrowserRouter>
         <Global styles={globalStyles} />
         <Routes>
            <Route path="/"  element={<MainPage />}  />
@@ -19,7 +27,6 @@ export default function App () {
            <Route path="/giphy"  element={<GiphyPage />}  />
            <Route path="/userMenu"  element={<UserMenuPage/>}  />
         </Routes>
-      </BrowserRouter>
     </>
   )
 }

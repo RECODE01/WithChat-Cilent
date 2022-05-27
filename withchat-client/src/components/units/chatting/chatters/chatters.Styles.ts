@@ -11,6 +11,9 @@ export const DmBox = styled.div`
   width: 240px;
   height: calc(100vh - 10px);
   overflow: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const OnOffCategory = styled.div`

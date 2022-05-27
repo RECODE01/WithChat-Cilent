@@ -2,10 +2,12 @@ import * as S from "../Auth.Styles";
 import { useForm } from "react-hook-form";
 import { ILoginFormData } from '../Auth.Types';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 
 export default function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
     const onSubmitLogin = (data : ILoginFormData) => {
             const variables = {
                     email: data.email,
@@ -16,12 +18,10 @@ export default function Login() {
                  "Content-Type": "application/json",
                 },
             }).then((res) => {
-
                 if(res.status === 201)
-                console.log(res.data.accessToken)
                 localStorage.setItem('accessToken', res.data.accessToken)
+                navigate('/')
                 alert("로그인 완료")
-
             }).catch((reason: any) => {
                 alert(reason.response.data.message)
             });

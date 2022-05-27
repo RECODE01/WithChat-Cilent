@@ -1,20 +1,13 @@
-// import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 
-// const introAnimation = `
-//     from{
-//         t
-//     }
-//     to{
-//         opacity:0;
-//         visibility: hidden;
-//     }
-// `
+interface IProps {
+  currentTab: number;
+  menuIndex: number;
+}
 
 export const ChattingRoomWrapper = styled.div`
   padding: 12px;
   width: 72px;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,8 +18,12 @@ export const ChattingRoomDmList = styled.img`
   width: 50px;
   height: 50px;
   cursor: pointer;
-  background-color: skyblue;
+  background-color: white;
   border-radius: 10px;
+  :hover {
+    transform: scale(1.1);
+    transition: 0.5s ease-in-out;
+  }
 `;
 
 export const ChattingRoomLine = styled.div`
@@ -37,6 +34,7 @@ export const ChattingRoomLine = styled.div`
 
 export const CurrentChattingRoom = styled.div`
   width: 50px;
+  height: 50px;
   color: gray;
   background-color: #37393e;
   border-radius: 50%;
@@ -45,16 +43,23 @@ export const CurrentChattingRoom = styled.div`
   justify-content: center;
   align-items: center;
   height: 50px;
+  border-left: ${(props: IProps) =>
+    props.currentTab === props.menuIndex ? "5px solid #F2B64C" : "none"};
+  transition: border-left 0.5s ease-in-out;
+
   :hover {
-    color: #18a8f1;
-    background-color: skyblue;
+    color: white;
+    background-color: #17a7f1;
     border-radius: 10px;
     cursor: pointer;
   }
+
+  div {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 `;
 
-export const FindChattingRoom = styled(CurrentChattingRoom)`
-  border-radius: 50%;
-`;
-
+export const FindChattingRoom = styled(CurrentChattingRoom)``;
 export const AddChattingRoom = styled(FindChattingRoom)``;
