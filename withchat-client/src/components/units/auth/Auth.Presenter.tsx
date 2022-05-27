@@ -1,14 +1,13 @@
 import Intro from "components/commons/intro/Intro";
 import Logo from "components/commons/logo/Logo";
 import { Route, Routes,Link } from "react-router-dom";
-import * as S from "./Auth.Styles";
-
 import ChangePassword from "./changePassword/ChangePassword";
 import FindEmail from "./findEmail/findEmail";
 import FindPassword from "./forgetPassword/ForgetPassword";
 import Login from "./login/Login";
 import SignUp from "./signUp/SignUp";
 import YupTest from "./yupTest/YupTest";
+import * as S from "./Auth.Styles";
 
 
 export default function AuthUI() {
@@ -17,7 +16,7 @@ export default function AuthUI() {
             <Intro />
             <S.AuthWrapper>
                 <S.AuthController>
-                    <Link to="login">
+                    <Link to="">
                         <button>Login</button>
                     </Link>
                     <Link to="signUp">
@@ -31,7 +30,7 @@ export default function AuthUI() {
                     </Link>
                 </S.AuthController>
                 <Routes>
-                    <Route path="login" element={<Login />} />
+                    <Route path="/" element={<Login />} />
                     <Route path="signUp" element={<SignUp />} />
                     <Route path="findEmail" element={<FindEmail />} />
                     <Route path="findPassWord" element={<FindPassword />} />
