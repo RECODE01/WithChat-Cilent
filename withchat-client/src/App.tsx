@@ -5,6 +5,9 @@ import { Global } from '@emotion/react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import MainPage from './pages/main'
 import { useEffect } from 'react'
+import GiphyPage from 'pages/giphy'
+import UserMenuPage from 'pages/userMenu'
+
 
 export default function App () {
   const navigate = useNavigate()
@@ -19,11 +22,15 @@ export default function App () {
 
   return (
     <>
-      <Global styles={globalStyles} />
-      <Routes>
-          <Route path="/"  element={<MainPage />}  />
-          <Route path="/auth/*"  element={<AuthPage />}  />
-      </Routes>
+      <BrowserRouter>
+        <Global styles={globalStyles} />
+        <Routes>
+           <Route path="/"  element={<MainPage />}  />
+           <Route path="/auth/*"  element={<AuthPage />}  />
+           <Route path="/giphy"  element={<GiphyPage />}  />
+           <Route path="/userMenu"  element={<UserMenuPage />}  />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
