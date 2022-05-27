@@ -2,19 +2,28 @@ import AuthPage from './pages/auth'
 import './App.css'
 import { globalStyles } from './styles/GlobalStyles'
 import { Global } from '@emotion/react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import MainPage from './pages/main'
+import { useEffect } from 'react'
 
 export default function App () {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(!localStorage.getItem("accessToken")){
+      navigate('/auth')
+    }else{
+      navigate('/')
+    }
+  },[])
+
   return (
     <>
-      <BrowserRouter>
-        <Global styles={globalStyles} />
-        <Routes>
-           <Route path="/"  element={<MainPage />}  />
-           <Route path="/auth/*"  element={<AuthPage />}  />
-        </Routes>
-      </BrowserRouter>
+      <Global styles={globalStyles} />
+      <Routes>
+          <Route path="/"  element={<MainPage />}  />
+          <Route path="/auth/*"  element={<AuthPage />}  />
+      </Routes>
     </>
   )
 }

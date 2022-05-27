@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import * as S from "../Auth.Styles";
 import { ILoginFormData } from "../Auth.Types";
 
+
 export default function ChangePassword() {
     const location = useLocation()
     const token = location?.search.split("=")[2]

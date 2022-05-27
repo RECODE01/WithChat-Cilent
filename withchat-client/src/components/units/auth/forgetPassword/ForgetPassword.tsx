@@ -7,12 +7,12 @@ export default function FotgetPassword() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmitForgetPassword = (data : ILoginFormData) => {
         const variables = {
-                email: data.email,
-                name: data.name,
+            email: data.email,
+            name: data.name,
         } 
         axios.post("https://backend.withchat.site/users/resetPassword/sendMail", {}, {params: variables, headers: {
             "Content-Type": "application/json",
-           }            
+        }            
         }).then((res) => {
             alert(res.data.message)
         }).catch((reason: any) => {
