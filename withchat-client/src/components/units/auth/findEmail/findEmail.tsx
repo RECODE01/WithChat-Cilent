@@ -1,16 +1,14 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { ErrorFont } from "styles/FormsStyles";
 import * as S from "../Auth.Styles";
 import { ILoginFormData } from "../Auth.Types";
 
 export default function FindEmail() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmitFindEmail = (data : ILoginFormData) => {
-        const params = { name:data.name };
-            axios.get("http://34.120.70.64/users/findEmail", {params}).then((res:any) => {
-                console.log(res.data.emails)
-                alert("이메일을 조회했습니다.")
+        const params = { nickName:data.nickName };
+            axios.get("https://backend.withchat.site/users/findEmail", {params}).then((res:any) => {
+                alert(`조회된 이메일은 ${res.data.email} 입니다.`)
             }).catch((reason: any) => {
                 alert(reason.response.message)
             });
@@ -30,8 +28,13 @@ export default function FindEmail() {
                 handleSubmit(onSubmitFindEmail)
             }>
                 <S.InputBox>
-                    <input autoComplete='off' type="text" placeholder="찾고 싶은 이메일에서 사용중인 닉네임을 입력하세요" {...register("name",{ required: true })} />
-                    {errors.name && <ErrorFont>닉네임을 한 글자 이상입력해주세요.</ErrorFont>}
+                    <S.AuthInput 
+                        errorStatus={errors.nickName}
+                        autoComplete='off' 
+                        type="text" 
+                        placeholder={errors.nickName ? "🚫  한 글자 이상 입력해주세요." : "이메일을 회원 가입할 때 사용했던 닉네임을 입력하세요."} 
+                        {...register("nickName",{ required: true })} 
+                    />
                 </S.InputBox>
                 <S.AuthButton type='submit'>조회하기</S.AuthButton>
             </form>

@@ -1,4 +1,3 @@
-import { ErrorFont } from 'styles/FormsStyles';
 import * as S from "../Auth.Styles";
 import { useForm } from "react-hook-form";
 import { ILoginFormData } from '../Auth.Types';
@@ -11,7 +10,7 @@ export default function Login() {
                     email: data.email,
                     password: data.password,
                 } 
-            axios.post("http://34.120.70.64/auth/login", variables, {
+            axios.post("https://backend.withchat.site/auth/login", variables, {
                 headers: {
                  "Content-Type": "application/json",
                 },
@@ -36,12 +35,22 @@ export default function Login() {
                 handleSubmit(onSubmitLogin)
             }>
                 <S.InputBox>
-                    <input autoComplete='off' type="text" placeholder="이메일을 입력하세요" {...register("email",{ required: true })} />
-                    {errors.email && <ErrorFont>이메일을 한 글자 이상입력해주세요.</ErrorFont>}
+                    <S.AuthInput 
+                        errorStatus={errors.email}
+                        autoComplete='off' 
+                        type="text" 
+                        placeholder={errors.email ? "🚫  한 글자 이상 입력해주세요." : "이메일을 입력하세요."} 
+                        {...register("email",{ required: true })} 
+                    />
                 </S.InputBox>
                 <S.InputBox>
-                    <input autoComplete='off' type="password" placeholder="비밀번호를 입력하세요" {...register("password",{ required: true })} />
-                    {errors.password && <ErrorFont>비밀번호를 한 글자 이상입력해주세요.</ErrorFont>}
+                    <S.AuthInput 
+                        errorStatus={errors.password} 
+                        autoComplete='off' 
+                        type="password" 
+                        placeholder={errors.password ? "🚫  한 글자 이상 입력해주세요." : "비밀번호를 입력하세요."} 
+                        {...register("password",{ required: true })}
+                     />
                 </S.InputBox>
                 <S.AuthButton type='submit'>로그인</S.AuthButton>
             </form>
