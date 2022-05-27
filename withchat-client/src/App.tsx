@@ -7,6 +7,7 @@ import MainPage from './pages/main'
 import { useEffect } from 'react'
 import GiphyPage from 'pages/giphy'
 import UserMenuPage from 'pages/userMenu'
+import MySettingPage from 'pages/myPage'
 
 
 export default function App () {
@@ -14,7 +15,7 @@ export default function App () {
 
   useEffect(() => {
     if(!localStorage.getItem("accessToken")){
-      navigate('/auth')
+      navigate('/auth/*')
     }
   },[])
 
@@ -25,6 +26,7 @@ export default function App () {
            <Route path="/"  element={<MainPage />}  />
            <Route path="/auth/*"  element={<AuthPage />}  />
            <Route path="/giphy"  element={<GiphyPage />}  />
+           <Route path="/mySetting"  element={<MySettingPage />}  />
            <Route path="/userMenu"  element={<UserMenuPage/>}  />
         </Routes>
     </>

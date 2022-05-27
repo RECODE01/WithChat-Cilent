@@ -1,11 +1,12 @@
 
 import { Box, Modal, Typography } from "@mui/material";
 import HeaderButtons from "components/commons/button/AddFriend";
-import Chatters from "components/units/chatting/chatters/Chatters.Container";
-import ChattingRoomList from "components/units/chatting/chattingRooms/ChattingRooms.Container";
-import DirectMessageList from "components/units/chatting/dmList/DirectMessageList.Container";
+import Chatters from "components/units/chatting/chatters/chatters.Container";
+import ChattingRoomList from "components/units/chatting/chattingRooms/chattingRooms.Container";
+import DirectMessageList from "components/units/chatting/dmList/directMessageList.Container";
 import { ChangeEvent, useState } from "react";
 import axios from "axios";
+import Header from "components/commons/header/Header";
 
 
 export default function MainPage() {
@@ -50,6 +51,8 @@ export default function MainPage() {
   };
 
   return (
+    <>
+     <Header /> 
     <div style={{ display: "flex" }}>
       <ChattingRoomList />
       <DirectMessageList />
@@ -165,5 +168,6 @@ export default function MainPage() {
       </div>
       <Chatters />
     </div>
+    </>
   );
 }

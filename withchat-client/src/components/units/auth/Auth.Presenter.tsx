@@ -37,7 +37,7 @@ export default function AuthUI() {
                 </Routes>
             </S.AuthWrapper>
             <S.AuthLogo>
-                <Logo />
+                <Logo width={300}/>
             </S.AuthLogo>
         </S.AuthContainer>
     )
