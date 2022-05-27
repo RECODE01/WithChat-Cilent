@@ -17,6 +17,7 @@ export default function Login() {
             }).then((res) => {
                 if(res.status === 201)
                 console.log(res.data.accessToken)
+                localStorage.setItem('accessToken', res.data.accessToken)
                 alert("로그인 완료")
             }).catch((reason: any) => {
                 alert(reason.response.message)
