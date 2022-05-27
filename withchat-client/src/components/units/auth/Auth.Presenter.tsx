@@ -2,11 +2,13 @@ import Intro from "components/commons/intro/Intro";
 import Logo from "components/commons/logo/Logo";
 import { Route, Routes,Link } from "react-router-dom";
 import * as S from "./Auth.Styles";
+
 import ChangePassword from "./changePassword/ChangePassword";
 import FindEmail from "./findEmail/FindEmail";
 import FindPassword from "./forgetPassword/ForgetPassword";
 import Login from "./login/Login";
 import SignUp from "./signUp/SignUp";
+
 
 export default function AuthUI() {
     return (
