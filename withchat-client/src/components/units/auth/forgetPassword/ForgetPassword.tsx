@@ -7,20 +7,21 @@ export default function FotgetPassword() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmitForgetPassword = (data : ILoginFormData) => {
         const variables = {
-            email: data.email,
-            name: data.name,
+                email: data.email,
+                name: data.name,
         } 
-        axios.post("https://backend.withchat.site/users/resetPassword/sendMail", variables, {
-            headers: {
-                "Content-Type": "application/json",
-            },
+        axios.post("https://backend.withchat.site/users/resetPassword/sendMail", {}, {params: variables, headers: {
+            "Content-Type": "application/json",
+           }            
         }).then((res) => {
-            if(res.status === 204)
-            alert("비밀번호 변경을 위한 인증 메일이 발송되었습니다.")
+            alert(res.data.message)
         }).catch((reason: any) => {
             alert(reason.response.data.message)
         });
     };
+
+
+
     
     return (
         <S.AuthContentsWrapper>

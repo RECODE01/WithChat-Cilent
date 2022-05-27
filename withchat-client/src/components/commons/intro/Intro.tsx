@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faComments } from '@fortawesome/free-solid-svg-icons'
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 
@@ -29,15 +27,14 @@ const IntroContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #2fa0f7;
+    background-color: #fff;
     position: fixed;
     z-index:9999;
     animation: ${introAnimation} 1.5s ease-in-out 2s 1 forwards;
 `
 
-const IntroIcon = styled.div`
-    font-size: 150px;
-    color:#fff;
+const IntroIcon = styled.img`
+    width: 200px;
     animation: ${introIconAnimation} 2s ease-in-out 0s 1 forwards; 
 `
 
@@ -45,9 +42,7 @@ const IntroIcon = styled.div`
 export default function Intro() {
     return (
         <IntroContainer>
-            <IntroIcon>
-                <FontAwesomeIcon icon={faComments}/>
-            </IntroIcon>
+            <IntroIcon src="../img/withchat/withchat_logo.png" alt="With Chat Intro Logo"/>
         </IntroContainer>
     );
 }
