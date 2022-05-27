@@ -16,8 +16,6 @@ function Giphy(){
             if(err) console.log(err)
             setGifResult(res.data)
         });
-        
-        
     }
     const onChangeKeyword=(e: ChangeEvent<HTMLInputElement>)=>{
         setKeyword(e.target.value)
