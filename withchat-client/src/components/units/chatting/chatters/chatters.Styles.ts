@@ -36,13 +36,3 @@ export const DmItemImg = styled.img`
 export const DmItemOff = styled(DmItem)`
   color: gray;
 `;
-
-// .OffChatter {
-//   color: gray;
-// }
-
-// .dmBox2 {
-// width: 240px;
-// height: calc(100vh - 10px);
-// overflow: scroll;
-// }

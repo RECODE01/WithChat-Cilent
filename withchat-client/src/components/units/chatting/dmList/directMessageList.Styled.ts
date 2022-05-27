@@ -7,7 +7,7 @@ export const DmWrapper = styled.div`
   background-color: #2f3136;
 `;
 
-export const FindChat = styled.div`
+export const FindChat = styled.input`
   width: 100%;
   height: 28px;
   background-color: black;
@@ -23,6 +23,7 @@ export const DmBox = styled.div`
   width: 240px;
   height: calc(100vh - 50px);
   overflow: scroll;
+  padding: 0 20px 0 0;
 `;
 
 export const AddDmBox = styled.div`
@@ -31,7 +32,6 @@ export const AddDmBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px 0 10px;
   margin-bottom: 10px;
 `;
 
@@ -49,8 +49,12 @@ export const DmItem = styled.div`
   align-items: center;
   color: lightgray;
   margin-bottom: 10px;
-  font-weight: bold;
-  cursor: pointer;
+  font-weight: 400;
+  border-radius: 5px;
+  :hover {
+    background-color: #42464d;
+    cursor: pointer;
+  }
 `;
 
 export const DmItemImg = styled.img`

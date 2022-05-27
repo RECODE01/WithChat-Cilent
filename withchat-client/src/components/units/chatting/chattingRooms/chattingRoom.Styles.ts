@@ -1,4 +1,15 @@
+// import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
+
+// const introAnimation = `
+//     from{
+//         t
+//     }
+//     to{
+//         opacity:0;
+//         visibility: hidden;
+//     }
+// `
 
 export const ChattingRoomWrapper = styled.div`
   padding: 12px;
@@ -26,14 +37,20 @@ export const ChattingRoomLine = styled.div`
 
 export const CurrentChattingRoom = styled.div`
   width: 50px;
-  background-color: beige;
-  border-radius: 10px;
+  color: gray;
+  background-color: #37393e;
+  border-radius: 50%;
   margin-bottom: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
-  cursor: pointer;
+  :hover {
+    color: #18a8f1;
+    background-color: skyblue;
+    border-radius: 10px;
+    cursor: pointer;
+  }
 `;
 
 export const FindChattingRoom = styled(CurrentChattingRoom)`

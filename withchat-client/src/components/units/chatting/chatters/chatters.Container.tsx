@@ -1,4 +1,4 @@
-import * as S from "./chatters.Styles";
+import * as S from "./Chatters.Styles";
 
 export default function Chatters() {
   const ChatterList = [
