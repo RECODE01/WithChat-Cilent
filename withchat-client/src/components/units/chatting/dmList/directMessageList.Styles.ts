@@ -24,6 +24,9 @@ export const DmBox = styled.div`
   height: calc(100vh - 50px);
   overflow: scroll;
   padding: 0 20px 0 0;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const AddDmBox = styled.div`

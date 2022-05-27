@@ -17,33 +17,31 @@ export default function Chatters() {
     { id: "13", name: "박주비", master: false, Online: false },
   ];
   return (
-    <>
-      <S.DmWrapper>
-        <S.DmBox>
-          <S.OnOffCategory>
-            Online - {ChatterList.filter((el) => el.Online === true).length}명
-          </S.OnOffCategory>
-          {ChatterList.filter((el) => el.Online === true).map((el) => (
-            <S.DmItem key={el.id}>
-              <S.DmItemImg src="/LOGO_WC.png" alt="이미지" />
-              <p>
-                {el.name} {el.master && "👑"}
-              </p>
-            </S.DmItem>
-          ))}
-          <S.OnOffCategory>
-            Offline - {ChatterList.filter((el) => el.Online === false).length}명
-          </S.OnOffCategory>
-          {ChatterList.filter((el) => el.Online === false).map((el) => (
-            <S.DmItemOff key={el.id}>
-              <S.DmItemImg src="/LOGO_WC.png" alt="이미지" />
-              <p>
-                {el.name} {el.master && "👑"}
-              </p>
-            </S.DmItemOff>
-          ))}
-        </S.DmBox>
-      </S.DmWrapper>
-    </>
+    <S.DmWrapper>
+      <S.DmBox>
+        <S.OnOffCategory>
+          Online - {ChatterList.filter((el) => el.Online === true).length}명
+        </S.OnOffCategory>
+        {ChatterList.filter((el) => el.Online === true).map((el) => (
+          <S.DmItem key={el.id}>
+            <S.DmItemImg src="/LOGO_WC.png" alt="이미지" />
+            <p>
+              {el.name} {el.master && "👑"}
+            </p>
+          </S.DmItem>
+        ))}
+        <S.OnOffCategory>
+          Offline - {ChatterList.filter((el) => el.Online === false).length}명
+        </S.OnOffCategory>
+        {ChatterList.filter((el) => el.Online === false).map((el) => (
+          <S.DmItemOff key={el.id}>
+            <S.DmItemImg src="/LOGO_WC.png" alt="이미지" />
+            <p>
+              {el.name} {el.master && "👑"}
+            </p>
+          </S.DmItemOff>
+        ))}
+      </S.DmBox>
+    </S.DmWrapper>
   );
 }
