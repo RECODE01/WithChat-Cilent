@@ -15,14 +15,11 @@ export default function App () {
   useEffect(() => {
     if(!localStorage.getItem("accessToken")){
       navigate('/auth')
-    }else{
-      navigate('/')
     }
   },[])
 
   return (
     <>
-      <BrowserRouter>
         <Global styles={globalStyles} />
         <Routes>
            <Route path="/"  element={<MainPage />}  />
@@ -30,7 +27,6 @@ export default function App () {
            <Route path="/giphy"  element={<GiphyPage />}  />
            <Route path="/userMenu"  element={<UserMenuPage />}  />
         </Routes>
-      </BrowserRouter>
     </>
   )
 }
