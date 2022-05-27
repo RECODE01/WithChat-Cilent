@@ -8,6 +8,7 @@ import FindEmail from "./findEmail/FindEmail";
 import FindPassword from "./forgetPassword/ForgetPassword";
 import Login from "./login/Login";
 import SignUp from "./signUp/SignUp";
+import YupTest from "./yupTest/YupTest";
 
 
 export default function AuthUI() {
@@ -23,7 +24,7 @@ export default function AuthUI() {
                         <button>Sign Up</button>
                     </Link>
                     <Link to="findEmail">
-                        <button>findEmail</button>
+                        <button>Find Email</button>
                     </Link>
                     <Link to="findPassWord">
                         <button>비밀번호를 잊어버리셨나요?</button>
@@ -35,6 +36,7 @@ export default function AuthUI() {
                     <Route path="findEmail" element={<FindEmail />} />
                     <Route path="findPassWord" element={<FindPassword />} />
                     <Route path="changePassword" element={<ChangePassword />} />
+                    <Route path="yupTest" element={<YupTest />} />
                 </Routes>
             </S.AuthWrapper>
             <S.AuthLogo>
