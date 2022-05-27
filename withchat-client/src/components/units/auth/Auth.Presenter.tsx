@@ -2,11 +2,14 @@ import Intro from "components/commons/intro/Intro";
 import Logo from "components/commons/logo/Logo";
 import { Route, Routes,Link } from "react-router-dom";
 import * as S from "./Auth.Styles";
+
 import ChangePassword from "./changePassword/ChangePassword";
 import FindEmail from "./findEmail/findEmail";
 import FindPassword from "./forgetPassword/ForgetPassword";
 import Login from "./login/Login";
 import SignUp from "./signUp/SignUp";
+import YupTest from "./yupTest/YupTest";
+
 
 export default function AuthUI() {
     return (
@@ -21,7 +24,7 @@ export default function AuthUI() {
                         <button>Sign Up</button>
                     </Link>
                     <Link to="findEmail">
-                        <button>findEmail</button>
+                        <button>Find Email</button>
                     </Link>
                     <Link to="findPassWord">
                         <button>비밀번호를 잊어버리셨나요?</button>
@@ -33,6 +36,7 @@ export default function AuthUI() {
                     <Route path="findEmail" element={<FindEmail />} />
                     <Route path="findPassWord" element={<FindPassword />} />
                     <Route path="changePassword" element={<ChangePassword />} />
+                    <Route path="yupTest" element={<YupTest />} />
                 </Routes>
             </S.AuthWrapper>
             <S.AuthLogo>

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { ILoginFormData } from '../Auth.Types';
 import axios from 'axios';
 
+
 export default function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmitLogin = (data : ILoginFormData) => {
@@ -15,14 +16,18 @@ export default function Login() {
                  "Content-Type": "application/json",
                 },
             }).then((res) => {
+
                 if(res.status === 201)
                 console.log(res.data.accessToken)
                 localStorage.setItem('accessToken', res.data.accessToken)
                 alert("로그인 완료")
+
             }).catch((reason: any) => {
-                alert(reason.response.message)
+                alert(reason.response.data.message)
             });
     };
+
+
     
     return (
         <S.AuthContentsWrapper>

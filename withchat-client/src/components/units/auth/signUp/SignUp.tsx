@@ -51,7 +51,7 @@ export default function SignUp() {
                     <S.AuthInput 
                         errorStatus={errors.password} 
                         autoComplete='off' 
-                        type="text" 
+                        type="password" 
                         placeholder={errors.password ? "🚫  한 글자 이상 입력해주세요." : "사용할 비밀번호를 입력하세요."} 
                         {...register("password",{ required: true })} 
                     />
@@ -60,7 +60,7 @@ export default function SignUp() {
                     <S.AuthInput 
                         errorStatus={errors.passwordCheck} 
                         autoComplete='off' 
-                        type="text" 
+                        type="password" 
                         placeholder={errors.passwordCheck ? "🚫  한 글자 이상 입력해주세요." : "비밀번호 확인을 입력하세요."} 
                         {...register("passwordCheck",{ required: true })} 
                     />

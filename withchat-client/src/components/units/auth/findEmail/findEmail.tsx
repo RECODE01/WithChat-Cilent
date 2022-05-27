@@ -10,7 +10,7 @@ export default function FindEmail() {
             axios.get("https://backend.withchat.site/users/findEmail", {params}).then((res:any) => {
                 alert(`조회된 이메일은 ${res.data.email} 입니다.`)
             }).catch((reason: any) => {
-                alert(reason.response.message)
+                alert(reason.response.data.message)
             });
     };
     
