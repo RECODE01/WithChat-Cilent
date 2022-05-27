@@ -2,11 +2,10 @@ import Intro from "components/commons/intro/Intro";
 import Logo from "components/commons/logo/Logo";
 import { Route, Routes,Link } from "react-router-dom";
 import ChangePassword from "./changePassword/ChangePassword";
-import FindEmail from "./findEmail/findEmail";
+import FindEmail from "./findEmail/FindEmail";
 import FindPassword from "./forgetPassword/ForgetPassword";
 import Login from "./login/Login";
 import SignUp from "./signUp/SignUp";
-import YupTest from "./yupTest/YupTest";
 import * as S from "./Auth.Styles";
 
 
@@ -35,7 +34,6 @@ export default function AuthUI() {
                     <Route path="findEmail" element={<FindEmail />} />
                     <Route path="findPassWord" element={<FindPassword />} />
                     <Route path="changePassword" element={<ChangePassword />} />
-                    <Route path="yupTest" element={<YupTest />} />
                 </Routes>
             </S.AuthWrapper>
             <S.AuthLogo>
