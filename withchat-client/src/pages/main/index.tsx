@@ -1,8 +1,8 @@
 import { Box, Modal, Typography } from "@mui/material";
 import HeaderButtons from "components/commons/button/AddFriend";
-import Chatters from "components/units/chatting/chatters/Chatters.Container";
-import ChattingRoomList from "components/units/chatting/chattingRooms/ChattingRooms.Container";
-import DirectMessageList from "components/units/chatting/dmList/DirectMessageList.Container";
+import Chatters from "components/units/chatting/chatters/chatters.Container";
+import ChattingRoomList from "components/units/chatting/chattingRooms/chattingRooms.Container";
+import DirectMessageList from "components/units/chatting/dmList/directMessageList.Container";
 import { ChangeEvent, useState } from "react";
 import axios from "axios";
 
@@ -12,6 +12,7 @@ export default function MainPage() {
   const [userList, setUserList] = useState([]);
   const onClickModal = () => {
     setOpen((prev) => !prev);
+    setKeyword("");
   };
 
   const onChangeSearchUser = (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +31,25 @@ export default function MainPage() {
         alert(reason.response.message);
       });
     setUserList(fetchUserList);
+  };
+
+  const onClickFriendRequest = async (e: any) => {
+    const targetId = e.target.id;
+    await axios
+      .post(
+        `https://backend.withchat.site/friend-request/${targetId}`,
+        {},
+        {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFmNWE4MmYzLTU4NjAtNGZmZi1iY2FhLWEwZmIzMTBiZmYwZCIsImVtYWlsIjoia2pta2ptODIyQG5hdmVyLmNvbSIsInBlcm1pc3Npb24iOjAsImlhdCI6MTY1MzY4Njk3OCwiZXhwIjoxNjUzNjk0MTc4LCJzdWIiOiJhY2Nlc3NUb2tlbiJ9.bbBSkn7kpzjV3-Gn9lJbb42_SUAeCJxDHJiVqD2WrXE",
+          },
+        }
+      )
+      .then(() => {
+        alert("친구 신청이 완료됐습니다.");
+      })
+      .catch((reason) => alert(reason.response.message));
   };
 
   const style = {
@@ -114,7 +134,7 @@ export default function MainPage() {
               </div>
             </Typography>
             <Typography id="modal-modal-description2" sx={{ mt: 2 }}>
-              검색 결과 ({userList.length})
+              검색 결과 ( {userList.length} 명 )
             </Typography>
             <div
               style={{
@@ -146,14 +166,16 @@ export default function MainPage() {
                     {el.nickName} ( {el.email} )
                   </div>
                   <button
+                    id={el.id}
                     style={{
                       borderRadius: "10px",
                       padding: "10px",
                       color: "white",
                       backgroundColor: "#18A8F1",
                     }}
+                    onClick={onClickFriendRequest}
                   >
-                    추가하기
+                    친구 신청
                   </button>
                 </div>
               ))}
