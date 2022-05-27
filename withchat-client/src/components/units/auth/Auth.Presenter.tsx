@@ -4,7 +4,7 @@ import { Route, Routes,Link } from "react-router-dom";
 import * as S from "./Auth.Styles";
 
 import ChangePassword from "./changePassword/ChangePassword";
-import FindEmail from "./findEmail/FindEmail";
+import FindEmail from "./findEmail/findEmail";
 import FindPassword from "./forgetPassword/ForgetPassword";
 import Login from "./login/Login";
 import SignUp from "./signUp/SignUp";
