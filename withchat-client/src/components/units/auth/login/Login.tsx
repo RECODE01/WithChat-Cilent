@@ -4,15 +4,26 @@ import { ILoginFormData } from "../Auth.Types";
 import axios from "axios";
 
 export default function Login() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const onSubmitLogin = (data: ILoginFormData) => {
-    const variables = {
-      email: data.email,
-      password: data.password,
+
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
+    const onSubmitLogin = (data : ILoginFormData) => {
+            const variables = {
+                    email: data.email,
+                    password: data.password,
+                } 
+            axios.post("https://backend.withchat.site/auth/login", variables, {
+                headers: {
+                 "Content-Type": "application/json",
+                },
+            }).then((res) => {
+                if(res.status === 201)
+                localStorage.setItem('accessToken', res.data.accessToken)
+                navigate('/')
+                alert("로그인 완료")
+            }).catch((reason: any) => {
+                alert(reason.response.data.message)
+            });
     };
     axios
       .post("https://backend.withchat.site/auth/login", variables, {

@@ -12,22 +12,20 @@ export default function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
-      navigate("/auth");
-    } else {
-      navigate("/");
+    if(!localStorage.getItem("accessToken")){
+      navigate('/auth')
     }
   }, []);
 
   return (
     <>
-      <Global styles={globalStyles} />
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/auth/*" element={<AuthPage />} />
-        <Route path="/giphy" element={<GiphyPage />} />
-        <Route path="/userMenu" element={<UserMenuPage />} />
-      </Routes>
+        <Global styles={globalStyles} />
+        <Routes>
+           <Route path="/"  element={<MainPage />}  />
+           <Route path="/auth/*"  element={<AuthPage />}  />
+           <Route path="/giphy"  element={<GiphyPage />}  />
+           <Route path="/userMenu"  element={<UserMenuPage/>}  />
+        </Routes>
     </>
   );
 }
