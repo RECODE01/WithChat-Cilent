@@ -1,3 +1,4 @@
+
 import { Box, Modal, Typography } from "@mui/material";
 import HeaderButtons from "components/commons/button/AddFriend";
 import Chatters from "components/units/chatting/chatters/chatters.Container";
@@ -6,6 +7,7 @@ import DirectMessageList from "components/units/chatting/dmList/directMessageLis
 import { ChangeEvent, useState } from "react";
 import axios from "axios";
 import Header from "components/commons/header/Header";
+
 
 export default function MainPage() {
   const [open, setOpen] = useState(false);
