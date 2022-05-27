@@ -19,8 +19,8 @@ export default function UserMenuUI(){
     return(
         <div>
            <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-        🥇 Master User
-      </Button>
+                🥇 고라니
+            </Button>
       <Popover
         id={id}
         open={open}
@@ -33,10 +33,13 @@ export default function UserMenuUI(){
       >
         <JH.MenuWrapper>
             <div className='UserInfo'>
-                <JH.DefaultUserImg />
+                <img className='UserImg' src='/avatar.png'/>
             </div>
-            <div>
-                Goranii#3708
+            <div className='UserName'>
+                Goranii<p>#3708</p>
+            </div>
+            <div className='UserRole'>
+                Admin
             </div>
             <div className='ButtonWrapper'>
             <button className='MenuButton'>메뉴 1</button>
