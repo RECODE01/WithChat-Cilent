@@ -1,7 +1,9 @@
+import ChattingInput from "components/commons/chattingInput/chattingInput";
+
 export default function MainPage() {
-    return (
-        <div>
-            메인페이지입니다.
-        </div>
-    );
+  return (
+    <div>
+      <ChattingInput />
+    </div>
+  );
 }
