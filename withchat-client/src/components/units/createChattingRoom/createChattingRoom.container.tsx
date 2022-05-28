@@ -12,6 +12,7 @@ export default function CreateChattingRoom(props:any){
     const [roomImage,setRoomImage]=useState('')
     const [accessToken, setAccessToken]=useState<string | null>('')
     const [image,setImage]=useState<File | null>()
+    
     const onChangeRoomName=(e:ChangeEvent<HTMLInputElement>)=>{
         setRoomName(e.target.value)
     }
@@ -65,7 +66,7 @@ export default function CreateChattingRoom(props:any){
         onChangeRoomName={onChangeRoomName} 
         onChangeRoomImage={onChangeRoomImage}
         onClickCreateChattingRoom={onClickCreateChattingRoom}
-        onClickOpenModal={props.onClickOpenModal}
+        onClickOpenCreateModal={props.onClickOpenCreateModal}
         onClickFileUpload={onClickFileUpload}
         />
 }

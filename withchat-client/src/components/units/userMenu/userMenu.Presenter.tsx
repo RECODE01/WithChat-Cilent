@@ -1,34 +1,35 @@
 import Popover from '@mui/material/Popover';
-import { MouseEvent, useState } from 'react';
-import Button from '@mui/material/Button';
+import {  useState } from 'react';
+// import Button from '@mui/material/Button';
 import * as JH from './userMenu.Styles'
 
-export default function UserMenuUI(){
+export default function UserMenuUI(props:any){
+  console.log(props.name)
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  // const open = Boolean(anchorEl);
+  // const id = open ? 'simple-popover' : undefined;
     return(
         <div>
-           <Button aria-describedby={id} variant="contained" onClick={handleClick}>
+           {/* <Button aria-describedby={id} variant="contained" onClick={handleClick}>
                 🥇 고라니
-            </Button>
+            </Button> */}
       <Popover
-        id={id}
-        open={open}
+        id={props.id}
+        open={props.openUserInfo}
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'left',
+          horizontal: 'right',
         }}
       >
         <JH.MenuWrapper>
@@ -36,7 +37,7 @@ export default function UserMenuUI(){
                 <img className='UserImg' src='/avatar.png'/>
             </div>
             <div className='UserName'>
-                Goranii<p>#3708</p>
+                {props.name}<p>#3708</p>
             </div>
             <div className='UserRole'>
                 Admin

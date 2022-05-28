@@ -70,7 +70,10 @@ export const CurrentChattingRoom = styled.div`
   }
 `;
 
-export const FindChattingRoom = styled(CurrentChattingRoom)``;
+export const FindChattingRoom = styled(CurrentChattingRoom)`
+  
+  margin: 10px 0 0;
+`;
 export const AddChattingRoom = styled(FindChattingRoom)`
-  margin-bottom: 0px;
+  margin-top: 0;
 `;
