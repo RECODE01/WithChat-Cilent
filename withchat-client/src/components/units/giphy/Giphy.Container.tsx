@@ -34,9 +34,7 @@ function Giphy(){
               const result = await axios.get(`https://api.giphy.com/v1/gifs/trending?api_key=sZhrrSqHSIYtlmtdctwCmjdpGCxWyvyO`)
               setGifResult(result?.data.data)
           }
-          
           randomGiphy()
-          console.log(gifResult)
       },[])
     return (
         <GiphyUI 

@@ -9,6 +9,8 @@ import GiphyPage from "pages/giphy";
 import UserMenuPage from "pages/userMenu";
 import CreateChattingRoomPage from "pages/createChattingRoom";
 import MySettingPage from "pages/myPage";
+import TestPage from 'pages/test'
+
 
 export default function App() {
   const navigate = useNavigate();
@@ -21,6 +23,7 @@ export default function App() {
 
   return (
     <>
+
       <Global styles={globalStyles} />
       <Routes>
         <Route path="/" element={<MainPage />} />
@@ -32,7 +35,9 @@ export default function App() {
           path="/createChattingRoom"
           element={<CreateChattingRoomPage />}
         />
+         <Route path="/test"  element={<TestPage/>}  />
       </Routes>
+
     </>
   );
 }

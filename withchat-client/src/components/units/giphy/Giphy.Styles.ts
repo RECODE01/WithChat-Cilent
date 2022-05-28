@@ -9,6 +9,10 @@ export const GiphyWrapper=styled.div`
     background-color: gray;
     overflow: scroll;
     border-radius: 12px;
+    .GiphyError{
+        text-align: center;
+        margin-top: 20px;
+    }
 `
 
 export const GiphySearchWrapper=styled.div`
