@@ -33,13 +33,20 @@ export default function GiphyUI(props:IGiphyProps){
                 {<JH.SearchedIcon />}
             </button>
             </JH.GiphySearchWrapper>
+            { !props.gifResult[0] 
+            ? 
+                <div>
+                    검색 결과를 찾지 못했어요 😢
+                </div> 
+            :
             <div css={gifWrapper}>
                 {props.gifResult && props.gifResult.map((el: any, idx:number)=>(
-                    <div css={gifInnerWrapper} key={idx}>
-                        <img css={imagesWrapper} src={el.images.original.url} onClick={props.onClickSendGif}/>
-                    </div>
-                ))}
-            </div>
+                <div css={gifInnerWrapper} key={idx}>
+                    <img css={imagesWrapper} src={el.images.original.url} onClick={props.onClickSendGif}/>
+                </div>
+            ))}
+             </div>
+            }
         </JH.GiphyWrapper>
     )
 }

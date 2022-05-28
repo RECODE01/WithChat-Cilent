@@ -1,6 +1,4 @@
-
 import * as S from "./directMessageList.Styles";
-
 
 export default function DirectMessageList() {
   const dmList = [
