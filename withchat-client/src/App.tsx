@@ -9,7 +9,8 @@ import GiphyPage from "pages/giphy";
 import UserMenuPage from "pages/userMenu";
 import CreateChattingRoomPage from "pages/createChattingRoom";
 import MySettingPage from "pages/myPage";
-import TestPage from 'pages/test'
+import ChattingTest from "pages/test/chattingTest";
+
 
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
 
       <Global styles={globalStyles} />
       <Routes>
+        <Route path="/test/chatting" element={<ChattingTest />} />
         <Route path="/" element={<MainPage />} />
         <Route path="/auth/*" element={<AuthPage />} />
         <Route path="/giphy" element={<GiphyPage />} />
@@ -35,9 +37,7 @@ export default function App() {
           path="/createChattingRoom"
           element={<CreateChattingRoomPage />}
         />
-         <Route path="/test"  element={<TestPage/>}  />
       </Routes>
-
     </>
   );
 }

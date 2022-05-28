@@ -1,27 +1,25 @@
 /** @jsxImportSource @emotion/react */
-import {css} from '@emotion/react'
-import * as JH from './Giphy.Styles'
-import { IGiphyProps } from './Giphy.types'
+import { css } from "@emotion/react";
+import * as JH from "./Giphy.Styles";
+import { IGiphyProps } from "./Giphy.types";
 
-const gifWrapper= css`
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
-    grid-row-gap: 20px;
-        
-`
-const gifInnerWrapper=css`
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-`
-const imagesWrapper=css`
-    width: 100%;
-    height: 100%;
-    /* object-fit: cover; */
-    cursor: pointer;
-`
-
+const gifWrapper = css`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-row-gap: 20px;
+`;
+const gifInnerWrapper = css`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+const imagesWrapper = css`
+  width: 100%;
+  height: 100%;
+  /* object-fit: cover; */
+  cursor: pointer;
+`;
 
 export default function GiphyUI(props:IGiphyProps){
 
@@ -45,8 +43,8 @@ export default function GiphyUI(props:IGiphyProps){
                     <img css={imagesWrapper} src={el.images.original.url} onClick={props.onClickSendGif}/>
                 </div>
             ))}
-             </div>
-            }
-        </JH.GiphyWrapper>
-    )
+        </div>
+      )}
+    </JH.GiphyWrapper>
+  );
 }

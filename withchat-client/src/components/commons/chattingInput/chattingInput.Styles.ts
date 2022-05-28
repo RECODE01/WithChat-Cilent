@@ -1,35 +1,104 @@
 import styled from "@emotion/styled";
 
-interface IPropsWrapper {
-  height: number;
-}
+export const Container = styled.div`
+  width: 1176px;
+  position: relative;
+  max-height: 50vh;
+`;
 
 export const Form = styled.form`
   width: 1176px;
-  height: ${(props: IPropsWrapper) => `${props.height + 28}px`};
+
   max-height: 50vh;
   padding: 0px 16px;
+  padding-bottom: 1px;
   background-color: #32353a;
 `;
 
 export const Wrapper = styled.div`
-  display: flex;
-  position: relative;
-  height: ${(props: IPropsWrapper) => `${props.height}px`};
   max-height: 50vh;
   overflow-x: hidden;
-  /* overflow-y: hidden; */
+
   margin-bottom: 28px;
   border-radius: 8px;
   background-color: #40444a;
 `;
 
-export const FileUploadInput = styled.div`
-  display: none;
+export const ImagesContainer = styled.ul`
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 280px;
+  padding: 20px 10px 10px;
 `;
 
+export const ImageLI = styled.li`
+  position: relative;
+  margin-right: 20px;
+  width: 216px;
+  height: 216px;
+  padding: 8px;
+  border-radius: 10px;
+  background-color: #32353a;
+`;
+export const OptionsContainer = styled.div`
+  display: flex;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  border-radius: 10px;
+  background-color: rgb(35, 35, 35);
+`;
+
+export const OptionBtn = styled.div`
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  :hover {
+    cursor: pointer;
+    background-color: rgb(60, 60, 60);
+  }
+`;
+
+export const ImageItem = styled.div`
+  padding: 10px 0px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  img {
+    width: 200px;
+    height: 137.32;
+  }
+
+  span {
+    color: #dcddde;
+  }
+`;
+
+export const EditerContainer = styled.div`
+  position: relative;
+  display: flex;
+`;
+
+export const FileUploadInput = styled.div`
+  input {
+    display: none;
+  }
+`;
+interface IPropsTextInput {
+  fileReaderArr: string[] | undefined;
+}
 export const TextInput = styled.div`
-  max-height: 50vh;
+  max-height: ${(props: IPropsTextInput) =>
+    props.fileReaderArr ? "18vh" : "47vh"};
+
   padding: 11px 0px;
   width: calc(100% - 112px);
 
@@ -76,38 +145,6 @@ export const IconImage = styled.div`
   }
 `;
 
-export const ButtonTools = styled.div``;
-
-export const GifButton = styled.button``;
-
-export const GifButtonImage = styled.div`
-  width: 24px;
-  svg {
-    width: 24px;
-    height: 24px;
-
-    path {
-      fill: rgb(185, 187, 190);
-    }
-
-    :hover {
-      path {
-        fill: #dcddde;
-      }
-      cursor: pointer;
-    }
-  }
-`;
-
-export const Textarea = styled.textarea`
-  width: 100%;
-  height: 30px;
-  max-height: 15vh;
-  padding-top: 7px;
-  border: none;
-  background: none;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 18px;
-  overflow: hidden;
+export const ButtonTools = styled.div`
+  position: relative;
 `;
