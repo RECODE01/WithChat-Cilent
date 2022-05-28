@@ -94,7 +94,7 @@ export default function Header() {
                 <HeaderUserInfos>
                     <UserPicture>
                         {userData?.picture ? userData.picture : 
-                         <img className="none__user__picture" src="./img/header/user.png" alt="로그아웃"/>
+                         <img className="none__user__picture" src="./img/header/user.png" alt="유저 이미지 없음"/>
                         }
                     </UserPicture>
                     <div>{userData ? userData.nickName : "loading.."}</div>

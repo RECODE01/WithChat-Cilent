@@ -26,7 +26,7 @@ export default function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/auth/*" element={<AuthPage />} />
         <Route path="/giphy" element={<GiphyPage />} />
-        <Route path="/mySetting" element={<MySettingPage />} />
+        <Route path="/mySetting/*" element={<MySettingPage />} />
         <Route path="/userMenu" element={<UserMenuPage />} />
         <Route
           path="/createChattingRoom"
