@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as S from "../Auth.Styles";
 import { ILoginFormData } from "../Auth.Types";
 
 
 export default function ChangePassword() {
     const location = useLocation()
+    const navigate = useNavigate()
     const token = location?.search.split("=")[2]
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmitChangePassword = (data : ILoginFormData) => {
@@ -20,6 +21,7 @@ export default function ChangePassword() {
         }            
         }).then((res) => {
             alert(res.data.message)
+            navigate('/auth')
         }).catch((reason: any) => {
             alert(reason.response.data.message)
         });

@@ -14,10 +14,9 @@ export default function SignUp() {
                 password: data.password,
                 nickName: data.nickName
             } 
-        axios.post("https://backend.withchat.site/users", variables, {
-            headers: {
-             "Content-Type": "application/json",
-            },
+        axios.post("https://backend.withchat.site/users", {}, {params: variables, headers: {
+            "Content-Type": "application/json",
+        } ,
         }).then((res) => {
             if(res.status === 201)
             console.log(res)

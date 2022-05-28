@@ -93,7 +93,8 @@ export default function Header() {
             <HeaderInfos>
                 <HeaderUserInfos>
                     <UserPicture>
-                        {userData?.picture ? userData.picture : 
+                        {userData?.picture ? 
+                         <img src={userData.picture} alt="유저 이미지" /> :
                          <img className="none__user__picture" src="./img/header/user.png" alt="유저 이미지 없음"/>
                         }
                     </UserPicture>
