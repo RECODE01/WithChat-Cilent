@@ -16,7 +16,7 @@ export default function CreateChattingRoomUI(props: any){
             </form>
             <div className='ButtonWrapper'>
                 <button className='Button' onClick={props.onClickCreateChattingRoom}>개설하기</button>
-                <button className='Button' onClick={props.onClickOpenModal}>취소하기</button>
+                <button className='Button' onClick={props.onClickOpenCreateModal}>취소하기</button>
             </div>
         </JH.Wrapper>
         </JH.Background>

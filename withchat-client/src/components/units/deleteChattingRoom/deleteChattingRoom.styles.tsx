@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
 
 export const DeleteButtonWrapper=styled.div`
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: lightgray;
-    font-size: 1.5rem;
-    text-align: center;
+    position: absolute;
+    overflow: visible;
+    top: -10%;
+    left: -10%;
+    z-index: 99999;
     :hover{
         background-color: skyblue;
     }
