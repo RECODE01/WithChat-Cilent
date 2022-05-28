@@ -4,6 +4,7 @@ export interface ILoginFormData{
     password?:string,
     nickName?:string,
     newPassword?:string
+    picture?:string
 }
 
 export interface ISignUpFormData{
