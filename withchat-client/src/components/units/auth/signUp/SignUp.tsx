@@ -2,9 +2,11 @@ import * as S from '../Auth.Styles';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { ISignUpFormData } from '../Auth.Types';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate()
     const onSubmitSignUp = (data : ISignUpFormData) => {
         const variables = {
                 email: data.email,
@@ -19,7 +21,8 @@ export default function SignUp() {
         }).then((res) => {
             if(res.status === 201)
             console.log(res)
-            alert("메일이 발송되었습니다. 인증해주세요.")
+            navigate('/')
+            alert("메일이 발송되었습니다. 인증 후 로그인해주세요.")
         }).catch((reason: any) => {
             alert(reason.response.data.message)
         });
