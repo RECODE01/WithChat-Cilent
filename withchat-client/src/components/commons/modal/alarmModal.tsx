@@ -1,7 +1,7 @@
 import { Modal, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-
+import * as S from "./alarmModal.Styles";
 interface IPropsAlarmModal {
   openAlarm: boolean;
   friendRequestList: string[];
@@ -56,52 +56,20 @@ export default function AlarmModal(props: IPropsAlarmModal) {
         <Typography id="modal-modal-title" variant="h6" component="h2">
           받은 친구 신청
         </Typography>
-        <div
-          style={{
-            width: "100%",
-            height: "90%",
-            overflow: "hidden",
-            overflowY: "scroll",
-            borderRadius: "10px",
-            padding: "10px",
-            marginTop: "10px",
-            color: "white",
-            backgroundColor: "#202225",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
+        <S.ModalBackground>
           {props.friendRequestList.length &&
             props.friendRequestList.map((el: any) => (
-              <div
-                key={el.id}
-                style={{
-                  width: "100%",
-                  borderRadius: "10px",
-                  padding: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
+              <S.ModalContentBox key={el.id}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <img src="/LOGO_WC.png" alt="사람" height={"30px"} />
                   {el.fromUser.nickName} ( {el.fromUser.email} )
                 </div>
-                <button
-                  id={el.id}
-                  style={{
-                    borderRadius: "10px",
-                    padding: "10px",
-                    color: "white",
-                    backgroundColor: "#18A8F1",
-                  }}
-                  onClick={onClickFriendRequestAccept}
-                >
+                <S.ModalButton id={el.id} onClick={onClickFriendRequestAccept}>
                   수락하기
-                </button>
-              </div>
+                </S.ModalButton>
+              </S.ModalContentBox>
             ))}
-        </div>
+        </S.ModalBackground>
       </Box>
     </Modal>
   );
