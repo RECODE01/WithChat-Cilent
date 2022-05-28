@@ -9,7 +9,7 @@ import axios from "axios";
 import Header from "components/commons/header/Header";
 
 export default function MainPage() {
-  const [friendRequestList, setFriendRequestList] = useState([]);
+  const [friendRequestList, setFriendRequestList] = useState<any>([]);
   const [open, setOpen] = useState(false);
   const [openAlarm, setOpenAlarm] = useState(false);
   const [keyword, setKeyword] = useState("");
@@ -20,8 +20,7 @@ export default function MainPage() {
       axios
         .get("https://backend.withchat.site/users/loggedInUser", {
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFmNWE4MmYzLTU4NjAtNGZmZi1iY2FhLWEwZmIzMTBiZmYwZCIsImVtYWlsIjoia2pta2ptODIyQG5hdmVyLmNvbSIsInBlcm1pc3Npb24iOjAsImlhdCI6MTY1MzY4Njk3OCwiZXhwIjoxNjUzNjk0MTc4LCJzdWIiOiJhY2Nlc3NUb2tlbiJ9.bbBSkn7kpzjV3-Gn9lJbb42_SUAeCJxDHJiVqD2WrXE",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         })
         .then((res) => {
@@ -33,10 +32,10 @@ export default function MainPage() {
     fetchUserLoggedIn();
   }, []);
 
-  console.log(friendRequestList);
-
   const onClickModal = () => {
     setOpen((prev) => !prev);
+    setUserList([]);
+    setKeyword("");
   };
 
   const onClickModalAlarm = () => {
@@ -51,6 +50,9 @@ export default function MainPage() {
     const fetchUserList = await axios
       .get("https://backend.withchat.site/users/search", {
         params: { keyword },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
       })
       .then((res: any) => {
         return res.data.searchResult;
@@ -59,6 +61,46 @@ export default function MainPage() {
         alert(reason.response.message);
       });
     setUserList(fetchUserList);
+  };
+
+  const onClickFriendRequest = async (e: any) => {
+    const targetId = e.target.id;
+    await axios
+      .post(
+        `https://backend.withchat.site/friend-request/${targetId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
+      .then((res) => {
+        alert(res.data.message);
+      })
+      .catch((reason: any) => {
+        alert(reason.response.data.message);
+      });
+  };
+
+  const onClickFriendRequestAccept = async (e: any) => {
+    const requestId = e.target.id;
+    await axios
+      .post(
+        `https://backend.withchat.site/friend-request/accept/${requestId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
+      .then(() => {
+        alert("친구 요청을 수락했습니다.");
+      })
+      .catch((reason: any) => {
+        alert(reason.response.data.message);
+      });
   };
 
   const style = {
@@ -178,16 +220,32 @@ export default function MainPage() {
                       <img src="/LOGO_WC.png" alt="사람" height={"30px"} />
                       {el.nickName} ( {el.email} )
                     </div>
-                    <button
-                      style={{
-                        borderRadius: "10px",
-                        padding: "10px",
-                        color: "white",
-                        backgroundColor: "#18A8F1",
-                      }}
-                    >
-                      추가하기
-                    </button>
+                    {el.isFriend === "w" ? (
+                      <button
+                        style={{
+                          borderRadius: "10px",
+                          padding: "10px",
+                          color: "white",
+                          backgroundColor: "#2F3136",
+                          cursor: "default",
+                        }}
+                      >
+                        친구 요청
+                      </button>
+                    ) : (
+                      <button
+                        id={el.id}
+                        style={{
+                          borderRadius: "10px",
+                          padding: "10px",
+                          color: "white",
+                          backgroundColor: "#18A8F1",
+                        }}
+                        onClick={onClickFriendRequest}
+                      >
+                        친구 요청
+                      </button>
+                    )}
                   </div>
                 ))}
               </div>
@@ -221,33 +279,36 @@ export default function MainPage() {
                 flexDirection: "column",
               }}
             >
-              {friendRequestList.map((el: any) => (
-                <div
-                  key={el.id}
-                  style={{
-                    width: "100%",
-                    borderRadius: "10px",
-                    padding: "10px",
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <img src="/LOGO_WC.png" alt="사람" height={"30px"} />
-                    {el.fromUser.nickName} ( {el.fromUser.email} )
-                  </div>
-                  <button
+              {friendRequestList.length &&
+                friendRequestList.map((el: any) => (
+                  <div
+                    key={el.id}
                     style={{
+                      width: "100%",
                       borderRadius: "10px",
                       padding: "10px",
-                      color: "white",
-                      backgroundColor: "#18A8F1",
+                      display: "flex",
+                      justifyContent: "space-between",
                     }}
                   >
-                    추가하기
-                  </button>
-                </div>
-              ))}
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <img src="/LOGO_WC.png" alt="사람" height={"30px"} />
+                      {el.fromUser.nickName} ( {el.fromUser.email} )
+                    </div>
+                    <button
+                      id={el.id}
+                      style={{
+                        borderRadius: "10px",
+                        padding: "10px",
+                        color: "white",
+                        backgroundColor: "#18A8F1",
+                      }}
+                      onClick={onClickFriendRequestAccept}
+                    >
+                      수락하기
+                    </button>
+                  </div>
+                ))}
             </div>
           </Box>
         </Modal>
