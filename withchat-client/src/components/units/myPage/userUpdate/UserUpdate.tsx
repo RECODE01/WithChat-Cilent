@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
+import axios from "axios";
 import { AuthInput, InputBox } from "components/units/auth/Auth.Styles";
+import { ILoginFormData } from "components/units/auth/Auth.Types";
+import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -61,7 +65,14 @@ export const UserInfoProfileImage = styled.div`
     overflow: hidden;
     margin:30px auto;
     & > img{
-        width:80%;
+        &.none__user__picture{
+            width:50%;
+            height:100%;
+        }
+        &.user__picture{
+            width:100%;
+            height:100%
+        }
         position: absolute;
         top:50%;
         left:50%;
@@ -72,10 +83,59 @@ export const UserInfoProfileImage = styled.div`
 
 
 export default function UserUpdate(props:any) {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmitUserUpdate = () =>{
-        console.log("유저 정보 수정")
+    const [picture,setPicture] = useState()
+
+    const onClickFileUpload = async (e:ChangeEvent<HTMLInputElement>)=>{
+        const newAccessToken=localStorage.getItem('accessToken')
+        if(e.target.files) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.readAsDataURL(e.target.files[0]);
+                reader.onload = (e:any) => {
+                    const previewImage:any = document.getElementById('image'); 
+                    previewImage.src = e.target.result;
+                    document.getElementById('image')?.classList.add("user__picture")
+                };
+            }
+            const file : any= e.target.files[0]
+            setPicture(file)
+            const formData = new FormData();
+            await formData.append("file", await file);
+            
+            await axios.post('https://backend.withchat.site/file/upload', formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${newAccessToken}`,
+                    accept: 'application/json'
+                    },
+            }).then((res)=> {
+                if(res.status === 201) setPicture(res?.data?.url)
+            }).catch((err)=>console.log(err))
+        }
     }
+
+    const navigate = useNavigate()
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onSubmitUserUpdate = (data : ILoginFormData) => {
+        const newAccessToken=localStorage.getItem('accessToken')
+        const variables = {
+            nickName: data.nickName,
+            password: data.password,
+            picture
+        } 
+        axios.patch("https://backend.withchat.site/users", variables, { headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${newAccessToken}`,
+           }           
+        }).then((res) => {
+            console.log(res)
+            alert('수정되었습니다.')
+            navigate('/')
+        }).catch((reason: any) => {
+            alert(reason.response.data.message)
+        });
+    };
+
     return (
         <UserUpdateContainer>
             <h2>회원 정보 수정</h2>
@@ -90,15 +150,17 @@ export default function UserUpdate(props:any) {
                         {
                             props?.userDataProfile ? props?.userDataProfile :
                             <UserInfoProfileImage>
-                                    {
-                                        props?.userData?.picture ? props?.userData?.picture :
-                                        <img className="none__user__picture" src="../img/header/user.png" alt="유저 이미지 없음"/>
-                                    }
+                                <img 
+                                    id="image" 
+                                    className={props?.userData?.picture ? "user__picture" : "none__user__picture"} 
+                                    src={props?.userData?.picture ? props?.userData?.picture : "../img/header/user.png"} 
+                                    alt="유저 이미지 없음"
+                                />
                             </UserInfoProfileImage>
                         }
                         <label htmlFor="profile">🖋  프로필 이미지 수정</label>
                     </UserProfileUpdate>
-                    <input id="profile" type="file" />
+                    <input id="profile" type="file" onChange={onClickFileUpload} />
                 </div>
                 <InputBox>
                     <AuthInput 

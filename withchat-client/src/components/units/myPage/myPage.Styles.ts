@@ -1,64 +1,113 @@
-
 import styled from "@emotion/styled";
 
-export const MenuWrapper=styled.div`
-    width: 400px;
-    height: auto;
+export const MySettingContainer = styled.div`
+    background-color: #222;
+    width:100%;
+    height:100vh;
+    position: relative;
+`
+export const MySettingWrapper = styled.div`
+    width:800px;
+    height:100%;
+    margin:0 auto;
+    background-color: #444;
+    display: flex;
+`
+export const MySettingLogo = styled.div`
+    position: absolute;
+    top:30px;
+    left:30px;
+    cursor: pointer;
+`
+
+export const SettingContents = styled.div`
+    width: 80%;
+`
+
+export const MySettingNavTitle = styled.div`
+    color:#fff;
+    padding-left: 20px;
+    padding-bottom: 30px;
+    font-weight: 100;
+    font-size: 13px;
+`
+
+export const MySettingNav = styled.div`
+    display: flex;
+    width:20%;
+    padding-top: 20px;
+    flex-direction: column;
+    background-color: #16a8f1;
+    & > a {
+        width:100%;
+    }
+    & > a > button{
+        width:100%;
+        color:#fff;
+        font-size: 17px;
+        transition:.4s;
+        text-align: left;
+        padding:10px 0 10px 20px;
+        &:hover{
+            background-color: #444;
+        }
+    }
+`
+
+export const UserInfoContainer = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    margin: 0 auto;
-    background-color: #787474;
-    .UserInfo{
-        width: 80px;
-        height: 80px;
-        text-align: left;
-        object-fit: cover;
-        border-radius: 50%;
-        border: 1px solid gray;
-        .UserImg{
-            width: 100%;
-            text-align: center;
-            margin: 0 auto;
-            border-radius: 50%;
+    align-items: center;
+    & > h2{
+        color:#fff;
+        text-align: center;
+        font-weight: 100;
+        padding:100px 0 50px;
+        & > span{
+            color:#16a8f1
         }
     }
-    .UserName{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        width: 100%;
-        height: auto;
-        margin: 10px 0;
-        font-size: 1.5rem;
-        font-weight: 700;
-        p{
-            font-size: 1.25rem;
-            padding-left: 5px;
-            color: #c7c3c3;
-        }
+    & .email{
+        color:#fff;
+        text-align: center;
+        font-weight: 100;
+        padding:30px 0;
     }
-    .UserRole{
-        width: 100%;
-        height: auto;
-        margin-bottom: 10px;
+`
+
+export const UserInfoProfileImage = styled.div`
+    background-color: #888;
+    width: 100px;
+    height:100px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    margin:0 auto;
+    & > img{
+        width:50%;
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
     }
-    .ButtonWrapper{
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        .MenuButton{
-            width: 100%;
-            height: 30px;
-            border: 1px solid gray;
-            border-radius: 10px;
-            padding-left: 10px;
-            margin: 0 5px;
-            text-align: left;
-            background-color: #c7c3c3;
-            :hover{
-                background-color: skyblue;
-            }
-        }
+`
+
+export const UserInfoMiniBox = styled.div`
+    width:100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    & > div{
+        color:#fff;
+        padding:5px 0;
     }
+`
+
+export const UserInfoButton = styled.button`
+    background-color: #F2B64C;
+    color:#fff;
+    padding:10px 23px;
+    border-radius: 8px;
+    margin-top: 100px;
 `
