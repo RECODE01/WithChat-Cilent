@@ -42,10 +42,9 @@ export default function UserMenuUI(){
                 Admin
             </div>
             <div className='ButtonWrapper'>
-            <button className='MenuButton'>메뉴 1</button>
-            <button className='MenuButton'>메뉴 2</button>
-            <button className='MenuButton'>메뉴 3</button>
-            <button className='MenuButton'>메뉴 4</button>
+            <button className='MenuButton' id='0'>Admin</button>
+            <button className='MenuButton' id='1'>Sub Admin</button>
+            <button className='MenuButton' id='2'>User</button>
             </div>
         </JH.MenuWrapper>
 

@@ -24,7 +24,7 @@ export default function AuthUI() {
             <button>Find Email</button>
           </Link>
           <Link to="findPassWord">
-            <button>비밀번호를 잊어버리셨나요?</button>
+            <button>Forget Password</button>
           </Link>
         </S.AuthController>
         <Routes>

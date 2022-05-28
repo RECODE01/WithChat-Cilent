@@ -38,26 +38,23 @@ export default function CreateChattingRoom(props:any){
         }).catch((err)=> console.log(err))
     }
 
-    // const onClickFileUpload=async (e:ChangeEvent<HTMLInputElement>)=>{
-        
-    //     const formData = new FormData();
-    //     formData.append("files", image);
-    //     console.log(formData.keys)
-    //     await axios.post('https://backend.withchat.site/file/upload', formData ,{
-    //         headers: {
-    //             "Content-Type": "multipart/form-data",
-    //             Authorization: `Bearer ${accessToken}`,
-    //             },
-    //     }).then((res)=> {
-    //         if(res.status === 201) console.log(res)
-    //     }).catch((err)=>console.log(err))
-        
-    // }
-    const onChangeFile=(e:ChangeEvent<HTMLInputElement>)=>{
+    const onClickFileUpload=async (e:ChangeEvent<HTMLInputElement>)=>{
         if(e.target.files) {
-            const file= e?.target.files[0]
+            const file= e.target.files[0]
             setImage(file)
             
+            const formData = new FormData();
+            await formData.append("file", await file);
+            
+            await axios.post('https://backend.withchat.site/file/upload', formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${accessToken}`,
+                    accept: 'application/json'
+                    },
+            }).then((res)=> {
+                if(res.status === 201) console.log(res)
+            }).catch((err)=>console.log(err))
         }
     }
 
@@ -69,7 +66,6 @@ export default function CreateChattingRoom(props:any){
         onChangeRoomImage={onChangeRoomImage}
         onClickCreateChattingRoom={onClickCreateChattingRoom}
         onClickOpenModal={props.onClickOpenModal}
-        // onClickFileUpload={onClickFileUpload}
-        onChangeFile={onChangeFile}
+        onClickFileUpload={onClickFileUpload}
         />
 }

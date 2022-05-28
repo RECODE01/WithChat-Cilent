@@ -1,9 +1,20 @@
 import styled from "@emotion/styled";
 import SearchIcon from "@mui/icons-material/Search";
 
-export const GiphyWrapper = styled.div`
-  width: 350px;
-  height: 50vh;
+
+export const GiphyWrapper=styled.div`
+    width: 350px;
+    height: 50vh;
+    max-height: 600px;
+    padding: 15px;
+    background-color: gray;
+    overflow: scroll;
+    border-radius: 12px;
+    .GiphyError{
+        text-align: center;
+        margin-top: 20px;
+    }
+`
 
   z-index: 999999;
   position: absolute;

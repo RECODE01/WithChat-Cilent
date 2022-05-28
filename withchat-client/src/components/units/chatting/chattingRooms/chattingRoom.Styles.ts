@@ -32,6 +32,14 @@ export const ChattingRoomLine = styled.div`
   margin: 10px 0px;
 `;
 
+export const ChattingRoomBox = styled.div`
+  height: calc(100vh - 300px);
+  overflow: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 export const CurrentChattingRoom = styled.div`
   width: 50px;
   height: 50px;
@@ -43,6 +51,7 @@ export const CurrentChattingRoom = styled.div`
   justify-content: center;
   align-items: center;
   height: 50px;
+
   border-left: ${(props: IProps) =>
     props.currentTab === props.menuIndex ? "5px solid #F2B64C" : "none"};
   transition: border-left 0.5s ease-in-out;
@@ -62,4 +71,6 @@ export const CurrentChattingRoom = styled.div`
 `;
 
 export const FindChattingRoom = styled(CurrentChattingRoom)``;
-export const AddChattingRoom = styled(FindChattingRoom)``;
+export const AddChattingRoom = styled(FindChattingRoom)`
+  margin-bottom: 0px;
+`;

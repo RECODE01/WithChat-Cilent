@@ -44,6 +44,7 @@ function Giphy() {
       setGifResult(result?.data.data);
     };
 
+
     randomGiphy();
   }, []);
   return (
