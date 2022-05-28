@@ -8,6 +8,7 @@ import { useEffect } from 'react'
 import GiphyPage from 'pages/giphy'
 import UserMenuPage from 'pages/userMenu'
 import CreateChattingRoomPage from 'pages/createChattingRoom'
+import TestPage from 'pages/test'
 
 
 export default function App () {
@@ -28,6 +29,7 @@ export default function App () {
            <Route path="/giphy"  element={<GiphyPage />}  />
            <Route path="/userMenu"  element={<UserMenuPage/>}  />
            <Route path="/createChattingRoom"  element={<CreateChattingRoomPage/>}  />
+           <Route path="/test"  element={<TestPage/>}  />
         </Routes>
     </>
   )

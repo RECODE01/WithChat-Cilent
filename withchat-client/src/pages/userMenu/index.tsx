@@ -8,7 +8,7 @@ export default function UserMenuPage(props: any){
     useEffect(()=>{
         const fetchUserLoggedIn=()=>{
             const newAccessToken=localStorage.getItem('accessToken')
-            axios.post(`https://backend.withchat.site/users/loggedInUser`,{},{
+            axios.get(`https://backend.withchat.site/users/loggedInUser`,{
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${newAccessToken}`,
@@ -17,7 +17,7 @@ export default function UserMenuPage(props: any){
             }).then((res)=>{
                 if(res.status === 201) console.log(res.data)
             }).catch((err)=>console.log(err))
-            console.log(newAccessToken)
+            
         }
         fetchUserLoggedIn()
     },[])

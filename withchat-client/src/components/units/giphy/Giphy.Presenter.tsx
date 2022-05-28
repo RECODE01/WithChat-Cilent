@@ -35,7 +35,7 @@ export default function GiphyUI(props:IGiphyProps){
             </JH.GiphySearchWrapper>
             { !props.gifResult[0] 
             ? 
-                <div>
+                <div className='GiphyError'>
                     검색 결과를 찾지 못했어요 😢
                 </div> 
             :
