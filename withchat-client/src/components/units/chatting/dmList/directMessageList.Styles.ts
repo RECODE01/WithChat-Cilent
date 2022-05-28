@@ -22,8 +22,10 @@ export const FindChat = styled.input`
 export const DmBox = styled.div`
   width: 240px;
   height: calc(100vh - 50px);
-  overflow: scroll;
   padding: 0 20px 0 0;
+
+  overflow: scroll;
+
   ::-webkit-scrollbar {
     display: none;
   }
