@@ -3,7 +3,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 export const GiphyWrapper=styled.div`
     width: 350px;
-    height: auto;
+    height: 50vh;
     max-height: 600px;
     padding: 15px;
     background-color: gray;
