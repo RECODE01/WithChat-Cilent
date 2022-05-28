@@ -1,9 +1,9 @@
 
 import { Box, Modal, Typography } from "@mui/material";
 import HeaderButtons from "components/commons/button/AddFriend";
-import Chatters from "components/units/chatting/chatters/Chatters.Container";
-import ChattingRoomList from "components/units/chatting/chattingRooms/ChattingRooms.Container";
-import DirectMessageList from "components/units/chatting/dmList/DirectMessageList.Container";
+import Chatters from "components/units/chatting/chatters/chatters.Container";
+import ChattingRoomList from "components/units/chatting/chattingRooms/chattingRooms.Container";
+import DirectMessageList from "components/units/chatting/dmList/directMessageList.Container";
 import { ChangeEvent, useState } from "react";
 import axios from "axios";
 

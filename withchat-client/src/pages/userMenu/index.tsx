@@ -6,10 +6,9 @@ export default function UserMenuPage(props: any){
     // const [accessToken, setAccessToken]= useState<string| null>()
     
     useEffect(()=>{
-        
         const fetchUserLoggedIn=()=>{
             const newAccessToken=localStorage.getItem('accessToken')
-            axios.post(`https://backend.withchat.site/users/loggedInUser`, {},{
+            axios.post(`https://backend.withchat.site/users/loggedInUser`,{},{
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${newAccessToken}`,
