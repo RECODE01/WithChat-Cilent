@@ -1,4 +1,4 @@
-import Channel from "components/units/channel/cheannel.container";
+import Channel from "components/units/channel/channel.container";
 
 
 export default function TestPage(){
