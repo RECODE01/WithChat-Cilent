@@ -37,7 +37,7 @@ export default function UserMenuUI(props:any){
                 <img className='UserImg' src='/avatar.png'/>
             </div>
             <div className='UserName'>
-                {props.name}<p>#3708</p>
+                {props.name}<p>#{props.id}</p>
             </div>
             <div className='UserRole'>
                 Admin
