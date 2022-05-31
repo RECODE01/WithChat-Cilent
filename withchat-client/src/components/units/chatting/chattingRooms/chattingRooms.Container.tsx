@@ -9,7 +9,7 @@ import { io } from 'socket.io-client'
 
 const socket = io('https://backend.withchat.site').connect()
 
-export default function ChattingRoomList() {
+export default function ChattingRoomList(props:any) {
   const [currentTab, setCurrentTab] = useState(0);
   const [chattingList, setChattingList] = useState<any>([]);
   const [openCreate,setOpenCreate]=useState<boolean>(false)
@@ -40,6 +40,7 @@ export default function ChattingRoomList() {
 
   const onClickSelectTab = (index: number)=>(e:MouseEvent<HTMLDivElement>) => {
     setCurrentTab(index);
+    props.setHome(false)
     // socket.emit('join room', {
     //   roomNum: e.currentTarget.id,
     // })
@@ -70,7 +71,7 @@ export default function ChattingRoomList() {
   return (
     <>
       <S.ChattingRoomWrapper>
-        <S.ChattingRoomDmList src="/LOGO_WC.png" alt="DM 리스트" title="DM" />
+        <S.ChattingRoomDmList src="/LOGO_WC.png" alt="DM 리스트" title="DM" onClick={props.onClickMoveToHome}/>
         <S.ChattingRoomLine />
         <S.AddChattingRoom
           menuIndex={-1}
