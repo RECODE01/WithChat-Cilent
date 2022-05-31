@@ -5,16 +5,16 @@ import axios from "axios";
 import AddIcon from "@mui/icons-material/Add";
 import CreateChattingRoom from "components/units/createChattingRoom/createChattingRoom.container";
 import DeleteChattingRoom from "components/units/deleteChattingRoom/deleteChattingRoom.container";
-// import { io } from 'socket.io-client'
+import { io } from 'socket.io-client'
 
-// const socket = io('https://backend.withchat.site').connect()
+const socket = io('https://backend.withchat.site').connect()
 
 export default function ChattingRoomList() {
   const [currentTab, setCurrentTab] = useState(0);
   const [chattingList, setChattingList] = useState<any>([]);
   const [openCreate,setOpenCreate]=useState<boolean>(false)
   const [openDeleteModal, setOpenDeleteModal]=useState(false)
-  // const [userNickName,setUserNickName]=useState('')
+  const [userNickName,setUserNickName]=useState('')
 
   const onClickOpenDeleteModal=(e: MouseEvent<HTMLDivElement>)=>{
     e.preventDefault();
@@ -31,7 +31,7 @@ export default function ChattingRoomList() {
         })
         .then((res) => {
           setChattingList(res.data.result);
-          if (res.status === 201) console.log(res.data);
+          if (res.status === 200) console.log(res.data.result);
         })
         .catch((err) => console.log(err));
     };
@@ -43,7 +43,7 @@ export default function ChattingRoomList() {
     // socket.emit('join room', {
     //   roomNum: e.currentTarget.id,
     // })
-    // socket.emit('hihi', userNickName, e.currentTarget.id)
+    socket.emit('hihi', userNickName, e.currentTarget.id)
   };
 
   const onClickOpenCreateModal=()=>{
@@ -59,7 +59,9 @@ export default function ChattingRoomList() {
                 
                },
         }).then((res)=>{
-            // if(res.status === 201) setUserNickName(res.data.user.nickName)
+            if(res.status === 201) {
+              setUserNickName(res.data.user.nickName)
+            }
         }).catch((err)=>console.log(err))
         
     }
