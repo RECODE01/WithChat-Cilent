@@ -1,6 +1,7 @@
-import DeleteChattingRoom from "components/units/deleteChattingRoom/deleteChattingRoom.container";
+import Channel from "components/units/channel/cheannel.container";
+
 
 export default function TestPage(){
 
-    return <DeleteChattingRoom />
+    return <Channel />
 }

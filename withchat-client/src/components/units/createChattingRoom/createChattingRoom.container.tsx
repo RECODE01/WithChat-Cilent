@@ -11,7 +11,6 @@ export default function CreateChattingRoom(props:any){
     const [roomName, setRoomName]=useState('')
     const [roomImage,setRoomImage]=useState('')
     const [accessToken, setAccessToken]=useState<string | null>('')
-    const [image,setImage]=useState<File | null>()
     
     const onChangeRoomName=(e:ChangeEvent<HTMLInputElement>)=>{
         setRoomName(e.target.value)
@@ -33,8 +32,8 @@ export default function CreateChattingRoom(props:any){
         }).then((res)=>{
             if(res.status === 200) {
                 console.log(res.data)
-                console.log(image)
                 alert(`${res.data.result.name} 채팅방이 개설되었어요!`)
+                props.setOpenCreate(false)
             }
         }).catch((err)=> console.log(err))
     }
@@ -42,7 +41,6 @@ export default function CreateChattingRoom(props:any){
     const onClickFileUpload=async (e:ChangeEvent<HTMLInputElement>)=>{
         if(e.target.files) {
             const file= e.target.files[0]
-            setImage(file)
             
             const formData = new FormData();
             await formData.append("file", await file);
