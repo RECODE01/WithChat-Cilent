@@ -10,9 +10,7 @@ export default function Channel(){
     const [channelClicked,setChannelClicked]=useState('')    
     
     const onClickChannel=(e: MouseEvent<HTMLDivElement>)=>{
-        if(channelClicked) return setChannelClicked('')
-        else setChannelClicked(e.currentTarget.id)
-
+        setChannelClicked(e.currentTarget.id)
             // emit 명령어를 통해 채널에 입장
     //     // 앞의 문자열은 백엔드에서 지정한 채널 입장 명령어를 넣어주면 됩니다
     //     // 뒤 객체에는 채널에 입장하기 위해 필요한 id값을 넣어주는데 변수명은 백엔드에서 설정한 값에 따라 
