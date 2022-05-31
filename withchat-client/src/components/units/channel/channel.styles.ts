@@ -17,29 +17,17 @@ const openAnimation = keyframes`
 `
 
 export const Wrapper = styled.div`
-    width: 100%;
-
-    position: ${(props: { openCreateChannelModal: boolean }) =>
-        props.openCreateChannelModal && 'fixed' };
+    min-width: 240px;
+    height: 100vh;
+    background-color: #2f3136;
 
     background: ${(props: { openCreateChannelModal:boolean}) =>
         props.openCreateChannelModal&& 'rgba(0, 0, 0, 0.8)'};
 
-    top: ${(props: { openCreateChannelModal:boolean}) =>
-        props.openCreateChannelModal&& '0'};
-        
-    left: ${(props: { openCreateChannelModal:boolean}) =>
-    props.openCreateChannelModal&& '0'};
-
-    right: ${(props: { openCreateChannelModal:boolean}) =>
-        props.openCreateChannelModal&& '0'};
-
-    bottom: ${(props: { openCreateChannelModal:boolean}) =>
-        props.openCreateChannelModal&& '0'};
     .ChannelHeader{
         width: 100%;
         margin: 0 auto;
-        padding: 20px;
+        padding: 10px 5px;
         background-color: gray; 
         border-bottom: 1px solid black;
 
@@ -135,7 +123,7 @@ export const ChannelWrapper= styled.div`
         }
         .ChannelName{
             width: 100%;
-            font-size: 1.25rem;
+            font-size: 1.125rem;
             font-weight: 700;
             
         }
