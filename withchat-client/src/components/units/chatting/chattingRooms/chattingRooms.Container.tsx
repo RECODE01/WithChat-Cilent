@@ -25,7 +25,7 @@ export default function ChattingRoomList(props: any) {
   useEffect(() => {
     const fetchMyChattingRooms = () => {
       axios
-        .get("https://backend.withchat.site/chatting-room", {
+        .get("https://backend.withchat.site/chatting-server", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
