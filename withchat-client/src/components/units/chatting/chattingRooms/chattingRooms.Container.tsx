@@ -43,6 +43,7 @@ export default function ChattingRoomList(props: any) {
     (index: number) => (e: MouseEvent<HTMLDivElement>) => {
       setCurrentTab(index);
       props.setHome(false);
+      props.setServerId(e.currentTarget.id)
       // socket.emit('join room', {
       //   roomNum: e.currentTarget.id,
       // })

@@ -8,6 +8,7 @@ import Channel from "../../components/units/channel/channel.container";
 
 export default function MainPage() {
   const [home, setHome] = useState(true);
+  const [serverId, setServerId]=useState('')
 
   const onClickMoveToHome = () => {
     setHome(true);
@@ -20,8 +21,9 @@ export default function MainPage() {
         <ChattingRoomList
           onClickMoveToHome={onClickMoveToHome}
           setHome={setHome}
+          setServerId={setServerId}
         />
-        {home ? <DirectMessageList /> : <Channel />}
+        {home ? <DirectMessageList /> : <Channel serverId={serverId}/>}
         <CurrentChattingRoom />
         <Chatters />
       </div>
