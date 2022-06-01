@@ -24,7 +24,7 @@ export default function CreateChattingRoom(props:any){
         }
         if(roomImage !== '') param.image = roomImage
 
-        axios.post('https://backend.withchat.site/chatting-room',param,{
+        axios.post('https://backend.withchat.site/chatting-server',param,{
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${accessToken}`,
@@ -52,7 +52,7 @@ export default function CreateChattingRoom(props:any){
                     accept: 'application/json'
                     },
             }).then((res)=> {
-                if(res.status === 201) console.log(res)
+                if(res.status === 201) setRoomImage(res.data.url)
             }).catch((err)=>console.log(err))
         }
     }
