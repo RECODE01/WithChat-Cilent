@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 
 interface IProps {
-  currentTab: number;
-  menuIndex: number;
+  currentTab?: number;
+  menuIndex?: number;
+  image?: File;
 }
 
 export const ChattingRoomWrapper = styled.div`
@@ -71,7 +72,6 @@ export const CurrentChattingRoom = styled.div`
 `;
 
 export const FindChattingRoom = styled(CurrentChattingRoom)`
-  
   margin: 10px 0 0;
 `;
 export const AddChattingRoom = styled(FindChattingRoom)`

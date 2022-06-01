@@ -2,27 +2,27 @@ import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import CreateChattingRoomUI from "./createChattingRoom.presenter";
 
-interface IParam{
-    name: string,
-    image?: string
+interface IParam {
+  name: string;
+  image?: string;
 }
 
-export default function CreateChattingRoom(props:any){
-    const [roomName, setRoomName]=useState('')
-    const [roomImage,setRoomImage]=useState('')
-    const [accessToken, setAccessToken]=useState<string | null>('')
-    
-    const onChangeRoomName=(e:ChangeEvent<HTMLInputElement>)=>{
-        setRoomName(e.target.value)
-    }
-    const onChangeRoomImage=(e:ChangeEvent<HTMLInputElement>)=>{
-        setRoomImage(e.target.value)
-    }
-    const onClickCreateChattingRoom=()=>{
-        const param:IParam={
-            name: roomName,
-        }
-        if(roomImage !== '') param.image = roomImage
+export default function CreateChattingRoom(props: any) {
+  const [roomName, setRoomName] = useState("");
+  const [roomImage, setRoomImage] = useState("");
+  const [accessToken, setAccessToken] = useState<string | null>("");
+
+  const onChangeRoomName = (e: ChangeEvent<HTMLInputElement>) => {
+    setRoomName(e.target.value);
+  };
+  const onChangeRoomImage = (e: ChangeEvent<HTMLInputElement>) => {
+    setRoomImage(e.target.value);
+  };
+  const onClickCreateChattingRoom = () => {
+    const param: IParam = {
+      name: roomName,
+    };
+    if (roomImage !== "") param.image = roomImage;
 
         axios.post('https://backend.withchat.site/chatting-server',param,{
             headers: {
@@ -38,6 +38,12 @@ export default function CreateChattingRoom(props:any){
         }).catch((err)=> console.log(err))
     }
 
+  const onClickFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0];
+
+      const formData = new FormData();
+      await formData.append("file", await file);
     const onClickFileUpload=async (e:ChangeEvent<HTMLInputElement>)=>{
         if(e.target.files) {
             const file= e.target.files[0]
@@ -53,19 +59,20 @@ export default function CreateChattingRoom(props:any){
                     },
             }).then((res)=> {
                 if(res.status === 201) setRoomImage(res.data.url);
-            }).catch((err)=>console.log(err))
-            
-        }
-    }
+            }).catch((err)=>console.log(err));
+  };
 
-    useEffect(()=>{
-        setAccessToken(localStorage.getItem('accessToken'))
-    },[])
-    return <CreateChattingRoomUI 
-        onChangeRoomName={onChangeRoomName} 
-        onChangeRoomImage={onChangeRoomImage}
-        onClickCreateChattingRoom={onClickCreateChattingRoom}
-        onClickOpenCreateModal={props.onClickOpenCreateModal}
-        onClickFileUpload={onClickFileUpload}
-        />
+  useEffect(() => {
+    setAccessToken(localStorage.getItem("accessToken"));
+  }, []);
+
+  return (
+    <CreateChattingRoomUI
+      onChangeRoomName={onChangeRoomName}
+      onChangeRoomImage={onChangeRoomImage}
+      onClickCreateChattingRoom={onClickCreateChattingRoom}
+      onClickOpenCreateModal={props.onClickOpenCreateModal}
+      onClickFileUpload={onClickFileUpload}
+    />
+  );
 }

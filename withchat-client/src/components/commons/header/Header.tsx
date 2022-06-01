@@ -2,13 +2,15 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import HeaderButtons from "../button/AddFriend";
-import AddFriendModal from "../modal/addFriendModal";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AlarmModal from "../modal/alarmModal";
+import SettingsIcon from "@mui/icons-material/Settings";
+import PersonIcon from "@mui/icons-material/Person";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { Badge } from "@mui/material";
 
 const HeaderContainer = styled.header`
-  padding: 10px 30px;
+  padding: 0px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17,53 +19,25 @@ const HeaderContainer = styled.header`
 `;
 
 const HeaderSettings = styled.div`
-  & > button {
-    color: #fff;
-    width: 50px;
-    height: 50px;
-    background-color: #555;
-    border-radius: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    color: #b9babf;
+    padding: 10px 0px;
     margin-left: 10px;
-    & > img {
-      width: 50%;
+    :hover {
+      color: #fff;
     }
   }
-`;
-
-const HeaderUserInfos = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const UserPicture = styled.div`
-  width: 50px;
-  height: 50px;
-  background-color: #555;
-  border-radius: 50%;
-  position: relative;
-  overflow: hidden;
-  margin-right: 10px;
-  & > img {
-    width: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    &.none__user__picture {
-      width: 50%;
-    }
-  }
-`;
-
-const HeaderInfos = styled.div`
-  display: flex;
 `;
 
 export default function Header() {
-  const [open, setOpen] = useState(false);
   const [openAlarm, setOpenAlarm] = useState(false);
-  const [keyword, setKeyword] = useState("");
-  const [userList, setUserList] = useState([]);
   const [friendRequestList, setFriendRequestList] = useState<any>([]);
   const [userData, setUserData] = useState<any>();
   const navigate = useNavigate();
@@ -97,56 +71,34 @@ export default function Header() {
     navigate("/mySetting");
   };
 
-  const onClickModal = () => {
-    setOpen((prev) => !prev);
-    setUserList([]);
-    setKeyword("");
-  };
-
   const onClickModalAlarm = () => {
     setOpenAlarm((prev) => !prev);
   };
 
   return (
     <HeaderContainer>
-      <HeaderInfos>
-        <HeaderUserInfos>
-          <UserPicture>
-            {userData?.picture ? (
-              <img src={userData.picture} alt="유저 이미지" />
-            ) : (
-              <img
-                className="none__user__picture"
-                src="./img/header/user.png"
-                alt="유저 이미지 없음"
-              />
-            )}
-          </UserPicture>
-          <div>{userData ? userData.nickName : "loading.."}</div>
-        </HeaderUserInfos>
-      </HeaderInfos>
-      <HeaderButtons
-        content={"친구 요청하기"}
-        backgroundColor={"#F2B64C"}
-        onClick={onClickModal}
-      />
-      <NotificationsIcon onClick={onClickModalAlarm} />
       <HeaderSettings>
         <button onClick={onClickMyPage}>
-          <img src="./img/header/settings.png" alt="마이 메뉴" />
+          {userData ? userData.nickName : "loading.."}
+          <PersonIcon />
+        </button>
+        <button onClick={onClickModalAlarm} style={{ marginLeft: "5px" }}>
+          <Badge
+            badgeContent={friendRequestList.length}
+            overlap="circular"
+            color="primary"
+          >
+            <NotificationsIcon />
+          </Badge>
+        </button>
+        <button>
+          <SettingsIcon />
         </button>
         <button onClick={onClickLogout}>
-          <img src="./img/header/logout.png" alt="로그아웃" />
+          <LogoutIcon />
         </button>
       </HeaderSettings>
-      <AddFriendModal
-        open={open}
-        keyword={keyword}
-        userList={userList}
-        setKeyword={setKeyword}
-        setUserList={setUserList}
-        onClickModal={onClickModal}
-      />
+
       <AlarmModal
         openAlarm={openAlarm}
         friendRequestList={friendRequestList}

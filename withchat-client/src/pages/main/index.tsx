@@ -3,26 +3,25 @@ import ChattingRoomList from "components/units/chatting/chattingRooms/chattingRo
 import DirectMessageList from "components/units/chatting/dmList/directMessageList.Container";
 import Header from "components/commons/header/Header";
 import CurrentChattingRoom from "components/units/chatting/currentChattingRoom/currentChattingRoom.Container";
-import {  useState } from "react";
-import Channel from '../../components/units/channel/channel.container'
+import { useState } from "react";
+import Channel from "../../components/units/channel/channel.container";
 
 export default function MainPage() {
-  const[home,setHome]=useState(true)
+  const [home, setHome] = useState(true);
 
-  const onClickMoveToHome=()=>{
-    setHome(true)
-  }
- 
+  const onClickMoveToHome = () => {
+    setHome(true);
+  };
+
   return (
     <>
       <Header />
       <div style={{ display: "flex" }}>
-        <ChattingRoomList onClickMoveToHome={onClickMoveToHome} setHome={setHome}/>
-        {home ?
-          <DirectMessageList />
-        : 
-        <Channel />
-        }
+        <ChattingRoomList
+          onClickMoveToHome={onClickMoveToHome}
+          setHome={setHome}
+        />
+        {home ? <DirectMessageList /> : <Channel />}
         <CurrentChattingRoom />
         <Chatters />
       </div>
