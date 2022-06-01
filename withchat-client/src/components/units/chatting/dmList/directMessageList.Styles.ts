@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Button } from "@mui/material";
 
 export const DmWrapper = styled.div`
   width: 240px;
@@ -7,7 +8,7 @@ export const DmWrapper = styled.div`
   background-color: #2f3136;
 `;
 
-export const FindChat = styled.input`
+export const FindFriend = styled.input`
   width: 100%;
   height: 28px;
   background-color: black;
@@ -30,21 +31,22 @@ export const DmBox = styled.div`
 `;
 
 export const AddDmBox = styled.div`
+  width: 100%;
   font-size: small;
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  padding: 0px 10px;
 `;
 
-export const AddDmButton = styled.button`
-  border: none;
-  background-color: transparent;
-  color: white;
-  font-size: large;
+export const AddDmButton = styled(Button)`
+  color: #b9babf;
   margin: 0;
   cursor: pointer;
+  :hover {
+    color: #fff;
+  }
 `;
 
 export const DmItem = styled.div`
