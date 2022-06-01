@@ -86,7 +86,7 @@ export default function Header() {
           <Badge
             badgeContent={friendRequestList.length}
             overlap="circular"
-            color="primary"
+            color="info"
           >
             <NotificationsIcon />
           </Badge>
