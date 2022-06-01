@@ -69,6 +69,12 @@ export const CurrentChattingRoom = styled.div`
     white-space: nowrap;
     overflow: hidden;
   }
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
 `;
 
 export const FindChattingRoom = styled(CurrentChattingRoom)`
