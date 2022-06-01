@@ -5,18 +5,26 @@ import { ISignUpFormData } from "../Auth.Types";
 import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const navigate = useNavigate();
-  const onSubmitSignUp = (data: ISignUpFormData) => {
-    const variables = {
-      email: data.email,
-      name: data.name,
-      password: data.password,
-      nickName: data.nickName,
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate()
+    const onSubmitSignUp = (data : ISignUpFormData) => {
+        const variables = {
+                email: data.email,
+                name: data.name,
+                password: data.password,
+                nickName: data.nickName
+            } 
+        axios.post("https://backend.withchat.site/users", variables, { headers: {
+            "Content-Type": "application/json",
+        } ,
+        }).then((res) => {
+            if(res.status === 201)
+            console.log(res)
+            navigate('/')
+            alert("메일이 발송되었습니다. 인증 후 로그인해주세요.")
+        }).catch((reason: any) => {
+            alert(reason.response.data.message)
+        });
     };
     console.log(variables);
     axios
