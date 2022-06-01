@@ -5,7 +5,7 @@ import ChannelUI from "./channel.presenter";
 
 // const socket = io('https://backend.withchat.site').connect()
 
-export default function Channel(){
+export default function Channel(props:any){
     // const [roomId, setRoomId]=useState('')
     const [openChannelList, setOpenChannelList]=useState<boolean>(false)
     const [channelClicked,setChannelClicked]=useState<string>('')   
@@ -36,7 +36,7 @@ export default function Channel(){
     }
     const onClickCreateChannel=()=>{
         axios.post('https://backend.withchat.site/chatting-channel',{
-            serverId:'47e5c683-e4fe-47d3-a513-969925ac7ff7',
+            serverId:`${props.serverId}`,
             name:channelName
         },{
             headers: {
