@@ -24,7 +24,7 @@ export default function CreateChattingRoom(props:any){
         }
         if(roomImage !== '') param.image = roomImage
 
-        axios.post('http://localhost:4000/chatting-server',param,{
+        axios.post('https://backend.withchat.site/chatting-server',param,{
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${accessToken}`,
