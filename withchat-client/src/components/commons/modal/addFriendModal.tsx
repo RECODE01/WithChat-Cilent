@@ -97,12 +97,13 @@ export default function AddFriendModal(props: IPropsAddFriendModal) {
         <S.ModalContentBox>
           {props.userList.map((el: any) => (
             <S.ModalContent key={el.id}>
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <S.FriendList style={{ display: "flex", alignItems: "center" }}>
                 <img src="/LOGO_WC.png" alt="사람" height={"30px"} />
                 {el.nickName} ( {el.email} )
-              </div>
+              </S.FriendList>
 
               <S.AddFriendModalButton
+                id={el.id}
                 isFriend={el.isFriend}
                 onClick={onClickFriendRequest}
               >
