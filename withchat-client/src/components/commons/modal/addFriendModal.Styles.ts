@@ -29,7 +29,7 @@ export const ModalButton = styled.button`
 
 export const ModalContentBox = styled.div`
   width: 100%;
-  height: 70%;
+  height: 65%;
   display: flex;
   flex-direction: column;
 
@@ -49,6 +49,10 @@ export const ModalContent = styled.div`
   padding: 10px;
   display: flex;
   justify-content: space-between;
+`;
+
+export const FriendList = styled.div`
+  width: calc(100% - 70px);
 `;
 
 export const AddFriendModalButton = styled.button`

@@ -53,9 +53,9 @@ export const CurrentChattingRoom = styled.div`
   align-items: center;
   height: 50px;
 
-  border-left: ${(props: IProps) =>
-    props.currentTab === props.menuIndex ? "5px solid #F2B64C" : "none"};
-  transition: border-left 0.5s ease-in-out;
+  border: ${(props: IProps) =>
+    props.currentTab === props.menuIndex ? "3px solid #F2B64C" : "none"};
+  transition: border 0.5s ease-in-out;
 
   :hover {
     color: white;
@@ -74,6 +74,9 @@ export const CurrentChattingRoom = styled.div`
     width: 100%;
     height: 100%;
     border-radius: 50%;
+    :hover {
+      border-radius: 10px;
+    }
   }
 `;
 
