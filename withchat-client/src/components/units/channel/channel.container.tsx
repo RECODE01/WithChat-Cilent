@@ -28,6 +28,9 @@ export default function Channel(props:any){
         socket.emit('join', {
           roomId: e.currentTarget.id,
         })
+        socket.emit('comeOn', {
+            roomId: e.currentTarget.id,
+        })
     }
     const onClickCreateChannel=()=>{
         axios.post('https://backend.withchat.site/chatting-channel',{
@@ -40,9 +43,13 @@ export default function Channel(props:any){
                 
                },
         }).then((res)=>{
-            if(res.status===200) console.log(res.data)
+            if(res.status===200) {
+                alert(`${channelName} 채널을 개설했어요!`)
+                setOpenCreateChannelModal(false)
+            }
         }).catch((err)=>{ console.log(err)})
     }
+
 
     useEffect(()=>{
         const fetchUserLoggedIn=()=>{
@@ -58,6 +65,7 @@ export default function Channel(props:any){
             }).catch((err)=>console.log(err))
             
         }
+        
         const fetchChannel=()=>{
             axios.get(`https://backend.withchat.site/chatting-server/${props.serverId}`,{
                 headers: {
@@ -66,11 +74,14 @@ export default function Channel(props:any){
             }).then((res)=>{
                 if(res.status===200) {
                     setChannelList(res.data)
+                    if(res.data.channels.length !== channelList.length) fetchChannel()
                 }
             }).catch((err)=> console.log(err))
         }
+        
         fetchUserLoggedIn()
         fetchChannel()
+        
     },[])
     return(
         <ChannelUI 
