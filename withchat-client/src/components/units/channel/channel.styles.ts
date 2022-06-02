@@ -20,7 +20,7 @@ export const Wrapper = styled.div`
     min-width: 240px;
     height: 100vh;
     background-color: #2f3136;
-
+    overflow: scroll;
     background: ${(props: { openCreateChannelModal:boolean}) =>
         props.openCreateChannelModal&& 'rgba(0, 0, 0, 0.8)'};
 
@@ -106,6 +106,7 @@ export const ChannelWrapper= styled.div`
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        
 
         width: 100%;
         margin: 0 auto;

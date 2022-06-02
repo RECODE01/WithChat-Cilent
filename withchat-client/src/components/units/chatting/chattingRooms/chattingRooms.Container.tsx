@@ -22,30 +22,14 @@ export default function ChattingRoomList(props: any) {
     setOpenDeleteModal((prev) => !prev);
   };
 
-  useEffect(() => {
-    const fetchMyChattingRooms = () => {
-      axios
-        .get("https://backend.withchat.site/chatting-server", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        })
-        .then((res) => {
-          setChattingList(res.data.result);
-          if (res.status === 200) {
-            if(res.data.result.length !== chattingList.length) fetchMyChattingRooms()
-          }
-        })
-        .catch((err) => console.log(err));
-    };
-    fetchMyChattingRooms();
-  }, []);
 
   const onClickSelectTab =
     (index: number) => (e: MouseEvent<HTMLDivElement>) => {
       setCurrentTab(index);
       props.setHome(false);
+      console.log(e.currentTarget.id)
       props.setServerId(e.currentTarget.id)
+      
       // socket.emit('join room', {
       //   roomNum: e.currentTarget.id,
       // })
@@ -55,6 +39,19 @@ export default function ChattingRoomList(props: any) {
   const onClickOpenCreateModal = () => {
     setOpenCreate((prev) => !prev);
   };
+  const fetchMyChattingRooms = () => {
+    axios
+      .get("https://backend.withchat.site/chatting-server", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        setChattingList(res.data.result);
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     const fetchUserLoggedIn = () => {
       const newAccessToken = localStorage.getItem("accessToken");
@@ -72,7 +69,9 @@ export default function ChattingRoomList(props: any) {
         })
         .catch((err) => console.log(err));
     };
+
     fetchUserLoggedIn();
+    fetchMyChattingRooms();
   }, []);
   return (
     <>
@@ -128,6 +127,7 @@ export default function ChattingRoomList(props: any) {
         <CreateChattingRoom
           onClickOpenCreateModal={onClickOpenCreateModal}
           setOpenCreate={setOpenCreate}
+          fetchMyChattingRooms={fetchMyChattingRooms}
         />
       )}
     </>

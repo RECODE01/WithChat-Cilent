@@ -32,6 +32,19 @@ export default function Channel(props:any){
             roomId: e.currentTarget.id,
         })
     }
+    const fetchChannel=()=>{
+        axios.get(`https://backend.withchat.site/chatting-server/${props.serverId}`,{
+            headers: {
+                "Content-Type": "application/json",
+               },
+        }).then((res)=>{
+            console.log(res.data.channels)
+            setChannelList(res.data.channels)
+            // console.log(channelList.length, 'channelList')
+            // console.log(res.data.channels.length, 'res.data')
+            
+        }).catch((err)=> console.log(err))
+    }
     const onClickCreateChannel=()=>{
         axios.post('https://backend.withchat.site/chatting-channel',{
             serverId:`${props.serverId}`,
@@ -45,12 +58,13 @@ export default function Channel(props:any){
         }).then((res)=>{
             if(res.status===200) {
                 alert(`${channelName} 채널을 개설했어요!`)
+                fetchChannel()
                 setOpenCreateChannelModal(false)
             }
         }).catch((err)=>{ console.log(err)})
     }
 
-
+    
     useEffect(()=>{
         const fetchUserLoggedIn=()=>{
             const newAccessToken=localStorage.getItem('accessToken')
@@ -65,24 +79,10 @@ export default function Channel(props:any){
             }).catch((err)=>console.log(err))
             
         }
-        
-        const fetchChannel=()=>{
-            axios.get(`https://backend.withchat.site/chatting-server/${props.serverId}`,{
-                headers: {
-                    "Content-Type": "application/json",
-                   },
-            }).then((res)=>{
-                if(res.status===200) {
-                    setChannelList(res.data)
-                    if(res.data.channels.length !== channelList.length) fetchChannel()
-                }
-            }).catch((err)=> console.log(err))
-        }
-        
         fetchUserLoggedIn()
         fetchChannel()
-        
     },[])
+    
     return(
         <ChannelUI 
         channelClicked={channelClicked}
