@@ -81,7 +81,7 @@ export default function Channel(props:any){
         }
         fetchUserLoggedIn()
         fetchChannel()
-    },[])
+    },[props.serverId])
     
     return(
         <ChannelUI 
