@@ -32,7 +32,9 @@ export default function ChattingRoomList(props: any) {
         })
         .then((res) => {
           setChattingList(res.data.result);
-          if (res.status === 200) console.log(res.data.result);
+          if (res.status === 200) {
+            if(res.data.result.length !== chattingList.length) fetchMyChattingRooms()
+          }
         })
         .catch((err) => console.log(err));
     };
