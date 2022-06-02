@@ -29,10 +29,6 @@ export default function ChattingRoomList(props: any) {
       props.setHome(false);
       console.log(e.currentTarget.id)
       props.setServerId(e.currentTarget.id)
-      
-      // socket.emit('join room', {
-      //   roomNum: e.currentTarget.id,
-      // })
       socket.emit("hihi", userNickName, e.currentTarget.id);
     };
 
