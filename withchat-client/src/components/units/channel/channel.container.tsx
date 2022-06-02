@@ -1,9 +1,9 @@
-// import { io } from 'socket.io-client'
+import { io } from 'socket.io-client'
 import axios from "axios";
 import { ChangeEvent, MouseEvent, useEffect,useState } from "react";
 import ChannelUI from "./channel.presenter";
 
-// const socket = io('https://backend.withchat.site').connect()
+const socket = io('https://backend.withchat.site').connect()
 
 export default function Channel(props:any){
     // const [roomId, setRoomId]=useState('')
@@ -12,7 +12,7 @@ export default function Channel(props:any){
     const [accessToken, setAccessToken]=useState<string | null>('') 
     const [channelName,setChannelName]=useState('')
     const [openCreateChannelModal,setOpenCreateChannelModal]=useState<boolean>(false)
-
+    const [channelList, setChannelList]=useState([])
     const onClickOpenCreateModal=()=>{
         setOpenCreateChannelModal(prev=>!prev)
     }
@@ -25,14 +25,9 @@ export default function Channel(props:any){
 
     const onClickChannel=(e: MouseEvent<HTMLDivElement>)=>{
         setChannelClicked(e.currentTarget.id)
-            // emit 명령어를 통해 채널에 입장
-    //     // 앞의 문자열은 백엔드에서 지정한 채널 입장 명령어를 넣어주면 됩니다
-    //     // 뒤 객체에는 채널에 입장하기 위해 필요한 id값을 넣어주는데 변수명은 백엔드에서 설정한 값에 따라 
-    //     // 이름만 바꿔주면 됩니다.
-    //     // 연결 확인은 socket.connected 명령어를 사용해 확인할 수 있고 리턴값은 불린으로 들어와요
-    //     socket.emit('join room', {
-    //       roomId: e.currentTarget.id,
-    //     })
+        socket.emit('join', {
+          roomId: e.currentTarget.id,
+        })
     }
     const onClickCreateChannel=()=>{
         axios.post('https://backend.withchat.site/chatting-channel',{
@@ -63,7 +58,19 @@ export default function Channel(props:any){
             }).catch((err)=>console.log(err))
             
         }
+        const fetchChannel=()=>{
+            axios.get(`https://backend.withchat.site/chatting-server/${props.serverId}`,{
+                headers: {
+                    "Content-Type": "application/json",
+                   },
+            }).then((res)=>{
+                if(res.status===200) {
+                    setChannelList(res.data)
+                }
+            }).catch((err)=> console.log(err))
+        }
         fetchUserLoggedIn()
+        fetchChannel()
     },[])
     return(
         <ChannelUI 
@@ -75,6 +82,7 @@ export default function Channel(props:any){
         onClickCreateChannel={onClickCreateChannel}
         openCreateChannelModal={openCreateChannelModal}
         onClickOpenCreateModal={onClickOpenCreateModal}
+        channelList={channelList}
         />
     )
 }
