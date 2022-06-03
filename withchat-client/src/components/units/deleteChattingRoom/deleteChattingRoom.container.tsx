@@ -3,26 +3,21 @@ import { MouseEvent, useEffect, useState } from "react";
 import DeleteChattingRoomUI from "./deleteChattingRoom.presenter";
 
 
-export default function DeleteChattingRoom(){
-    const [openDeleteModal, setOpenDeleteModal]=useState(false)
+export default function DeleteChattingRoom(props:any){
     const [accessToken, setAccessToken]=useState<string | null>('')
-
-    const onClickOpenDeleteModal=(e: MouseEvent<HTMLDivElement>)=>{
-        e.preventDefault();
-        setOpenDeleteModal(prev => !prev)
-    }
     const onClickDeleteChattingRoom=(e: MouseEvent<HTMLDivElement>)=>{
-        axios.delete('https://backend.withchat.site/', {
+        axios.delete('https://backend.withchat.site/chatting-server', {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${accessToken}`,
                },
             data: {
-                roomId: e.currentTarget.id
+                roomId: props.id
             }
         }).then((res)=>{
             if(res.status === 200){
                 alert('채팅방을 삭제했어요!')
+                props.fetchMyChattingRooms()
             }
         }).catch((err)=>{console.log(err)})
     }
@@ -31,7 +26,8 @@ export default function DeleteChattingRoom(){
     },[])
     return <DeleteChattingRoomUI 
     onClickDeleteChattingRoom={onClickDeleteChattingRoom}
-    onClickOpenDeleteModal={onClickOpenDeleteModal}
-    openDeleteModal={openDeleteModal}
+    id={props.id}
+    name={props.name}
+    onClickOpenDeleteModal={props.onClickOpenDeleteModal}
     />
 }
