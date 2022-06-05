@@ -33,6 +33,8 @@ const ChattingInput = () => {
     </div>,
   ]);
 
+  // 확인용 - 석지웅
+
   useEffect(() => {
     if (!elementKey.current) return;
     const $parent = textInputRef.current?.children[elementKey.current - 1]
