@@ -267,9 +267,6 @@ const params = {
 
   return (
     <S.Container>
-      <div
-        style={{ height: "50vh", backgroundColor: "rgb(200,200,200)" }}
-      ></div>
       {isGiphyOpen && <Giphy />}
       <S.Form onSubmit={chatting}>
         <S.Wrapper>

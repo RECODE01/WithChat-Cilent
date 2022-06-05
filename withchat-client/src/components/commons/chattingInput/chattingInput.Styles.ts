@@ -1,14 +1,15 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-  width: 1176px;
+  /* width: 1176px; */
+  width:100%;
   position: relative;
   max-height: 50vh;
 `;
 
 export const Form = styled.form`
-  width: 1176px;
-
+  /* width: 1176px; */
+  width:100%;
   max-height: 50vh;
   padding: 0px 16px;
   padding-bottom: 1px;
