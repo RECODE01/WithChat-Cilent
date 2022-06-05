@@ -1,17 +1,23 @@
 import { elementFocus } from "asset/functions/elementFocus";
+import axios from "axios";
 import Giphy from "components/units/giphy/Giphy.Container";
+import { ChattingContext } from "pages/main";
 
 import {
   ChangeEvent,
   KeyboardEvent,
   MouseEvent,
   ReactElement,
+  useContext,
   useEffect,
   useRef,
   useState,
 } from "react";
+import { io } from "socket.io-client";
 import * as S from "./chattingInput.Styles";
 import ImagesLI from "./ImagesLI";
+
+const socket = io('https://backend.withchat.site')
 
 const ChattingInput = () => {
   const textInputRef = useRef<HTMLDivElement>(null);
@@ -32,6 +38,120 @@ const ChattingInput = () => {
       ></span>
     </div>,
   ]);
+
+  // 석지웅 : 채팅 기능
+
+const {setChatHistory} = useContext(ChattingContext)
+const [userData,setUserData]= useState<any>()
+useEffect(() => {
+    const fetchUserLoggedIn = () => {
+      const newAccessToken = localStorage.getItem("accessToken");
+      axios
+        .get(`https://backend.withchat.site/users/loggedInUser`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${newAccessToken}`,
+          },
+        })
+        .then((res) => {
+          if (res.status === 201) setUserData(res.data.user);
+        })
+        .catch((err) => console.log(err));
+    };
+    fetchUserLoggedIn();
+}, []);
+
+
+const user = userData?.nickName
+const { channelId } = useContext(ChattingContext)
+const [fileArrUrls,setFileArrUrls] = useState<any[]>([])
+
+useEffect(()=>{
+  socket.on("comeOn" + channelId, (data:any) => {
+    console.log(data)
+  })
+
+  socket.on(channelId, (data:any) => {
+    console.log(data[0], data[1])
+    console.log('소켓 연결 성공')
+  })
+})
+
+const chatting = async (e:any) => {
+  const accessToken = localStorage.getItem('accessToken')
+  e.preventDefault()
+
+
+socket.emit('send',user,channelId,textInputRef.current?.querySelector('span')?.innerText) 
+
+for(let i =0;i < fileArr.length;i++){
+  const formData = new FormData();
+  await formData.append("file", await fileArr[i]);
+  await axios
+  .post("https://backend.withchat.site/file/upload", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${accessToken}`,
+      accept: "application/json",
+    },
+  })
+  .then((res:any) => {
+    setFileArrUrls((prev) => [...prev, res.data.url]);
+  })
+  .catch((err) => console.log(err));
+}
+
+// - 석지웅 : 채팅
+console.log(fileArrUrls)
+
+const variables = {
+  channelId,
+  messages: 
+  fileArr.length > 0 ?
+  [
+    {
+      contents: textInputRef.current?.querySelector('span')?.innerText,
+      type: "text"
+    },
+    {
+      contents: JSON.stringify(fileArrUrls),
+      type: "image"
+    }
+  ] :
+  [
+    {
+      contents: textInputRef.current?.querySelector('span')?.innerText,
+      type: "text"
+    }
+  ]
+}
+
+
+
+const params = {
+  channelId
+}
+
+  await axios.post('https://backend.withchat.site/channel-history',variables,{
+    headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+    },
+  })
+
+  await axios.get('https://backend.withchat.site/channel-history/new',{
+    params,
+    headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+    },
+  }).then((res) => {
+    console.log(res)
+    setChatHistory((prev:any) => prev.concat(res.data.message))
+  })
+}
+console.log(fileArrUrls)
+// 석지웅 : 채팅
 
   useEffect(() => {
     if (!elementKey.current) return;
@@ -149,11 +269,8 @@ const ChattingInput = () => {
 
   return (
     <S.Container>
-      <div
-        style={{ height: "50vh", backgroundColor: "rgb(200,200,200)" }}
-      ></div>
       {isGiphyOpen && <Giphy />}
-      <S.Form>
+      <S.Form onSubmit={chatting}>
         <S.Wrapper>
           {fileReaderArr && (
             <S.ImagesContainer>
@@ -203,6 +320,7 @@ const ChattingInput = () => {
             </S.ButtonTools>
           </S.EditerContainer>
         </S.Wrapper>
+        <button>제출</button>
       </S.Form>
     </S.Container>
   );

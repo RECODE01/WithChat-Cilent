@@ -1,13 +1,15 @@
 import { io } from 'socket.io-client'
 import axios from "axios";
-import { ChangeEvent, MouseEvent, useEffect,useState } from "react";
+import { ChangeEvent, MouseEvent, useContext, useEffect,useState } from "react";
 import ChannelUI from "./channel.presenter";
+import { ChattingContext } from 'pages/main';
 
 const socket = io('https://backend.withchat.site').connect()
 
 export default function Channel(props:any){
     // const [roomId, setRoomId]=useState('')
     const [openChannelList, setOpenChannelList]=useState<boolean>(false)
+    const {setChannelId,setChatHistory} = useContext(ChattingContext)
     const [channelClicked,setChannelClicked]=useState<string>('')   
     const [accessToken, setAccessToken]=useState<string | null>('') 
     const [channelName,setChannelName]=useState('')
@@ -25,8 +27,28 @@ export default function Channel(props:any){
 
     const onClickChannel=(e: MouseEvent<HTMLDivElement>)=>{
         setChannelClicked(e.currentTarget.id)
+        setChannelId(e.currentTarget.id)
+            const newAccessToken = localStorage.getItem("accessToken");
+            const params = {
+                lastIdx:-1,
+                channelId:e.currentTarget.id
+            }
+
+            axios
+                .get(`https://backend.withchat.site/channel-history`, {
+                params,
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${newAccessToken}`,
+                },
+                })
+                .then((res) => {
+                    setChatHistory(res.data.message);
+                })
+                .catch((err) => console.log(err));
+
         socket.emit('join', {
-          roomId: e.currentTarget.id,
+           roomId: e.currentTarget.id,
         })
         socket.emit('comeOn', {
             roomId: e.currentTarget.id,
