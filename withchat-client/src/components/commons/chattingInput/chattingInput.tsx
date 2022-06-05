@@ -13,13 +13,16 @@ import {
   useRef,
   useState,
 } from "react";
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 import * as S from "./chattingInput.Styles";
 import ImagesLI from "./ImagesLI";
 
-const socket = io('https://backend.withchat.site')
+
+let socket:Socket 
 
 const ChattingInput = () => {
+
+ 
   const textInputRef = useRef<HTMLDivElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const elementKey = useRef<number>(1);
@@ -41,9 +44,9 @@ const ChattingInput = () => {
 
   // 석지웅 : 채팅 기능
 
-const {setChatHistory} = useContext(ChattingContext)
-const [userData,setUserData]= useState<any>()
-useEffect(() => {
+  const { setChatHistory } = useContext(ChattingContext);
+  const [userData, setUserData] = useState<any>();
+  useEffect(() => {
     const fetchUserLoggedIn = () => {
       const newAccessToken = localStorage.getItem("accessToken");
       axios
@@ -59,99 +62,108 @@ useEffect(() => {
         .catch((err) => console.log(err));
     };
     fetchUserLoggedIn();
-}, []);
+  }, []);
 
+  const user = userData?.nickName;
+  const { channelId } = useContext(ChattingContext);
+  // const [fileArrUrls, setFileArrUrls] = useState<any[]>([]);
+  const fileArrUrls:any[] =[]
 
-const user = userData?.nickName
-const { channelId } = useContext(ChattingContext)
-const [fileArrUrls,setFileArrUrls] = useState<any[]>([])
+  useEffect(() => {
+    socket = io("https://backend.withchat.site");
+    socket.on("message", (data: any) => {
+      console.log(data);
+       axios
+      .get("https://backend.withchat.site/channel-history/new", {
+        params: {
+          channelId,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setChatHistory((prev: any) => prev.concat(res.data.message));
+      });
+    });
 
-useEffect(()=>{
-  socket.on("comeOn" + channelId, (data:any) => {
-    console.log(data)
-  })
+    socket.on(channelId, (data: any) => {
+      console.log(data[0], data[1]);
+      console.log("소켓 연결 성공");
+    });
 
-  socket.on(channelId, (data:any) => {
-    console.log(data[0], data[1])
-    console.log('소켓 연결 성공')
-  })
-})
+    return () => {
+      socket.disconnect();
+    };
 
-const chatting = async (e:any) => {
-  const accessToken = localStorage.getItem('accessToken')
-  e.preventDefault()
+  },[channelId]);
 
+  const chatting = async (e: any) => {
+    const accessToken = localStorage.getItem("accessToken");
+    e.preventDefault();
 
-socket.emit('send',user,channelId,textInputRef.current?.querySelector('span')?.innerText) 
+    socket.emit(
+      "message",
+      user,
+      "asdasdasdasd",
+      textInputRef.current?.querySelector("span")?.innerText
+    );
 
-for(let i =0;i < fileArr.length;i++){
-  const formData = new FormData();
-  await formData.append("file", await fileArr[i]);
-  await axios
-  .post("https://backend.withchat.site/file/upload", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${accessToken}`,
-      accept: "application/json",
-    },
-  })
-  .then((res:any) => {
-    setFileArrUrls((prev) => [...prev, res.data.url]);
-  })
-  .catch((err) => console.log(err));
-}
-
-// - 석지웅 : 채팅
-console.log(fileArrUrls)
-
-const variables = {
-  channelId,
-  messages: 
-  fileArr.length > 0 ?
-  [
-    {
-      contents: textInputRef.current?.querySelector('span')?.innerText,
-      type: "text"
-    },
-    {
-      contents: JSON.stringify(fileArrUrls),
-      type: "image"
+    for (let i = 0; i < fileArr.length; i++) {
+      const formData = new FormData();
+      await formData.append("file", await fileArr[i]);
+      await axios
+        .post("https://backend.withchat.site/file/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${accessToken}`,
+            accept: "application/json",
+          },
+        })
+        .then((res: any) => {
+          fileArrUrls.push(res.data.url)
+        })
+        .catch((err) => console.log(err));
     }
-  ] :
-  [
-    {
-      contents: textInputRef.current?.querySelector('span')?.innerText,
-      type: "text"
-    }
-  ]
-}
+    // - 석지웅 : 채팅
+    const variables = {
+      channelId,
+      messages:
+        fileArr.length > 0
+          ? [
+              {
+                contents:
+                  textInputRef.current?.querySelector("span")?.innerText,
+                type: "text",
+              },
+              {
+                contents: JSON.stringify(fileArrUrls),
+                type: "image",
+              },
+            ]
+          : [
+              {
+                contents:
+                  textInputRef.current?.querySelector("span")?.innerText,
+                type: "text",
+              },
+            ],
+    };
+    await axios.post(
+      "https://backend.withchat.site/channel-history",
+      variables,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+  };
 
-
-
-const params = {
-  channelId
-}
-
-  await axios.post('https://backend.withchat.site/channel-history',variables,{
-    headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-    },
-  })
-
-  await axios.get('https://backend.withchat.site/channel-history/new',{
-    params,
-    headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-    },
-  }).then((res) => {
-    console.log(res)
-    setChatHistory((prev:any) => prev.concat(res.data.message))
-  })
-}
-console.log(fileArrUrls)
-// 석지웅 : 채팅
+  // 석지웅 : 채팅
 
   useEffect(() => {
     if (!elementKey.current) return;
@@ -269,6 +281,7 @@ console.log(fileArrUrls)
 
   return (
     <S.Container>
+      <button onClick={chatting}>클릭</button>
       {isGiphyOpen && <Giphy />}
       <S.Form onSubmit={chatting}>
         <S.Wrapper>

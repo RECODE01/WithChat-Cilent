@@ -4,22 +4,18 @@ export const Container = styled.div`
   /* width: 1176px; */
   width:100%;
   position: relative;
-  max-height: 50vh;
 `;
 
 export const Form = styled.form`
   /* width: 1176px; */
   width:100%;
-  max-height: 50vh;
   padding: 0px 16px;
   padding-bottom: 1px;
-  background-color: #32353a;
+  margin-bottom: 27px;
 `;
 
 export const Wrapper = styled.div`
-  max-height: 50vh;
   overflow-x: hidden;
-
   margin-bottom: 28px;
   border-radius: 8px;
   background-color: #40444a;
