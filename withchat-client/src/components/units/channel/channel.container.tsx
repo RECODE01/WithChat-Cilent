@@ -1,14 +1,19 @@
 import { io } from "socket.io-client";
 import axios from "axios";
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
+
+import { ChangeEvent, MouseEvent, useContext, useEffect,useState } from "react";
+
 import ChannelUI from "./channel.presenter";
+import { ChattingContext } from 'pages/main';
 
 const socket = io("https://backend.withchat.site").connect();
+
 
 export default function Channel(props: any) {
   // const [roomId, setRoomId]=useState('')
   const [openChannelList, setOpenChannelList] = useState<boolean>(false);
   const [channelClicked, setChannelClicked] = useState<string>("");
+          const {setChannelId,setChatHistory} = useContext(ChattingContext)
   const [accessToken, setAccessToken] = useState<string | null>("");
   const [channelName, setChannelName] = useState("");
   const [openCreateChannelModal, setOpenCreateChannelModal] =
@@ -79,6 +84,28 @@ export default function Channel(props: any) {
         console.log(err);
       });
   };
+      
+      const onClickChannel=(e: MouseEvent<HTMLDivElement>)=>{
+        setChannelClicked(e.currentTarget.id)
+        setChannelId(e.currentTarget.id)
+            const newAccessToken = localStorage.getItem("accessToken");
+            const params = {
+                lastIdx:-1,
+                channelId:e.currentTarget.id
+            }
+
+            axios
+                .get(`https://backend.withchat.site/channel-history`, {
+                params,
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${newAccessToken}`,
+                },
+                })
+                .then((res) => {
+                    setChatHistory(res.data.message);
+                })
+                .catch((err) => console.log(err));
 
   useEffect(() => {
     const fetchUserLoggedIn = () => {
@@ -89,6 +116,10 @@ export default function Channel(props: any) {
             "Content-Type": "application/json",
             Authorization: `Bearer ${newAccessToken}`,
           },
+
+      
+              socket.emit('join', {
+           roomId: e.currentTarget.id,
         })
         .then((res) => {
           if (res.status === 201) setAccessToken(newAccessToken);

@@ -3,19 +3,36 @@ import ChattingRoomList from "components/units/chatting/chattingRooms/chattingRo
 import DirectMessageList from "components/units/chatting/dmList/directMessageList.Container";
 import Header from "components/commons/header/Header";
 import CurrentChattingRoom from "components/units/chatting/currentChattingRoom/currentChattingRoom.Container";
-import { useState } from "react";
+import { createContext, useState } from "react";
 import Channel from "../../components/units/channel/channel.container";
+
+
+
+export const ChattingContext:any = createContext({});
 
 export default function MainPage() {
   const [home, setHome] = useState(true);
   const [serverId, setServerId]=useState('')
+  const [chatHistory,setChatHistory] = useState([])
 
   const onClickMoveToHome = () => {
     setHome(true);
   };
+  const [channelId,setChannelId] = useState("id")
+  const [chattings,setChattings] = useState([])
+
+  const value = {
+    channelId,
+    chattings,
+    setChannelId,
+    setChattings,
+    chatHistory,
+    setChatHistory
+  };
 
   return (
     <>
+      <ChattingContext.Provider value={value}>
       <Header />
       <div style={{ display: "flex" }}>
         <ChattingRoomList
@@ -27,6 +44,7 @@ export default function MainPage() {
         <CurrentChattingRoom />
         <Chatters />
       </div>
+      </ChattingContext.Provider>
     </>
   );
 }
