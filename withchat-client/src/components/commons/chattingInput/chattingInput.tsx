@@ -61,11 +61,10 @@ useEffect(() => {
     fetchUserLoggedIn();
 }, []);
 
+
 const user = userData?.nickName
 const { channelId } = useContext(ChattingContext)
 const [fileArrUrls,setFileArrUrls] = useState<any[]>([])
-console.log(fileArrUrls)
-console.log(channelId)
 
 useEffect(()=>{
   socket.on("comeOn" + channelId, (data:any) => {
@@ -103,6 +102,7 @@ for(let i =0;i < fileArr.length;i++){
 }
 
 // - 석지웅 : 채팅
+console.log(fileArrUrls)
 
 const variables = {
   channelId,
@@ -126,6 +126,8 @@ const variables = {
   ]
 }
 
+
+
 const params = {
   channelId
 }
@@ -148,7 +150,7 @@ const params = {
     setChatHistory((prev:any) => prev.concat(res.data.message))
   })
 }
-
+console.log(fileArrUrls)
 // 석지웅 : 채팅
 
   useEffect(() => {

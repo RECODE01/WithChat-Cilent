@@ -24,7 +24,7 @@ const Message = styled.div`
 
 const MessageList = styled.div`
     width:100%;
-    height:80vh;
+    height:30vh;
     overflow: auto;
     padding:20px;
 `
