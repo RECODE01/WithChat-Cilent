@@ -6,20 +6,18 @@ import CurrentChattingRoom from "components/units/chatting/currentChattingRoom/c
 import { createContext, useState } from "react";
 import Channel from "../../components/units/channel/channel.container";
 
-
-
-export const ChattingContext:any = createContext({});
+export const ChattingContext: any = createContext({});
 
 export default function MainPage() {
   const [home, setHome] = useState(true);
-  const [serverId, setServerId]=useState('')
-  const [chatHistory,setChatHistory] = useState([])
+  const [serverId, setServerId] = useState("");
+  const [chatHistory, setChatHistory] = useState([]);
 
   const onClickMoveToHome = () => {
     setHome(true);
   };
-  const [channelId,setChannelId] = useState("id")
-  const [chattings,setChattings] = useState([])
+  const [channelId, setChannelId] = useState("id");
+  const [chattings, setChattings] = useState([]);
 
   const value = {
     channelId,
@@ -27,23 +25,23 @@ export default function MainPage() {
     setChannelId,
     setChattings,
     chatHistory,
-    setChatHistory
+    setChatHistory,
   };
 
   return (
     <>
       <ChattingContext.Provider value={value}>
-      <Header />
-      <div style={{ display: "flex" }}>
-        <ChattingRoomList
-          onClickMoveToHome={onClickMoveToHome}
-          setHome={setHome}
-          setServerId={setServerId}
-        />
-        {home ? <DirectMessageList /> : <Channel serverId={serverId}/>}
-        <CurrentChattingRoom />
-        <Chatters />
-      </div>
+        <Header />
+        <div style={{ display: "flex" }}>
+          <ChattingRoomList
+            onClickMoveToHome={onClickMoveToHome}
+            setHome={setHome}
+            setServerId={setServerId}
+          />
+          {home ? <DirectMessageList /> : <Channel serverId={serverId} />}
+          <CurrentChattingRoom />
+          <Chatters />
+        </div>
       </ChattingContext.Provider>
     </>
   );

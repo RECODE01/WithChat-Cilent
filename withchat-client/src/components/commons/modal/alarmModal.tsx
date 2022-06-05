@@ -12,7 +12,7 @@ interface IPropsAlarmModal {
 
 export default function AlarmModal(props: IPropsAlarmModal) {
   const [menu0, setMenu0] = useState(true);
-  const [menu1, setMenu1] = useState(true);
+  const [menu1, setMenu1] = useState(false);
 
   const onClickMenu0 = () => {
     setMenu0(true);
@@ -69,17 +69,19 @@ export default function AlarmModal(props: IPropsAlarmModal) {
     >
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          <button onClick={onClickMenu0}>받은 친구 신청</button>{" "}
+          <button onClick={onClickMenu0}>받은 친구 신청</button>
           <button onClick={onClickMenu1}>받은 서버 초대</button>
         </Typography>
         {menu0 && (
           <S.ModalBackground>
+            <div>친구 요청 리스트</div>
             {props.friendRequestList.length &&
               props.friendRequestList.map((el: any) => (
                 <S.ModalContentBox key={el.id}>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <img src="/LOGO_WC.png" alt="사람" height={"30px"} />
-                    {el.fromUser.nickName} ( {el.fromUser.email} )
+                    {el.fromUser.nickName} ( {el.fromUser.email} ) 친구 요청
+                    리스트
                   </div>
                   <S.ModalButton
                     id={el.id}
@@ -93,19 +95,16 @@ export default function AlarmModal(props: IPropsAlarmModal) {
         )}
         {menu1 && (
           <S.ModalBackground>
+            <div>서버 초대 리스트</div>
             {props.inviteList.length &&
               props.inviteList.map((el: any) => (
                 <S.ModalContentBox key={el.id}>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <img src="/LOGO_WC.png" alt="사람" height={"30px"} />
                     {el.chattingRoom.name}
+                    <div style={{ color: "white" }}></div>
                   </div>
-                  <S.ModalButton
-                    id={el.id}
-                    onClick={onClickFriendRequestAccept}
-                  >
-                    수락하기
-                  </S.ModalButton>
+                  <S.ModalButton id={el.id}>수락하기</S.ModalButton>
                 </S.ModalContentBox>
               ))}
           </S.ModalBackground>
