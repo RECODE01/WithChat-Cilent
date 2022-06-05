@@ -14,22 +14,21 @@ export default function ChattingRoomList(props: any) {
   const [currentTab, setCurrentTab] = useState(-10);
   const [chattingList, setChattingList] = useState<any>([]);
   const [openCreate, setOpenCreate] = useState<boolean>(false);
-  const [openDeleteModal, setOpenDeleteModal] = useState('');
+  const [openDeleteModal, setOpenDeleteModal] = useState("");
   const [userNickName, setUserNickName] = useState("");
 
   const onClickOpenDeleteModal = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     setOpenDeleteModal(e.currentTarget.id);
 
-    if(e.currentTarget.id=== null || undefined || '') setOpenDeleteModal('')
+    if (e.currentTarget.id === null || undefined || "") setOpenDeleteModal("");
   };
-
 
   const onClickSelectTab =
     (index: number) => (e: MouseEvent<HTMLDivElement>) => {
       setCurrentTab(index);
       props.setHome(false);
-      props.setServerId(e.currentTarget.id)
+      props.setServerId(e.currentTarget.id);
       socket.emit("hihi", userNickName, e.currentTarget.id);
     };
 
@@ -104,30 +103,31 @@ export default function ChattingRoomList(props: any) {
         <S.ChattingRoomBox>
           {chattingList.map((el: any, index: number) => (
             <Tooltip key={el.id} title={el.name} placement="right" arrow>
-              <>
-              <S.CurrentChattingRoom
-                className="transitionTap"
-                menuIndex={index}
-                id={el.id}
-                currentTab={currentTab}
-                onClick={onClickSelectTab(index)}
-                onContextMenu={onClickOpenDeleteModal}
-              >
-                {el.image ? <img src={el.image} /> : <div>{el.name}</div>}
-
-              </S.CurrentChattingRoom>
-                {openDeleteModal=== el.id && <DeleteChattingRoom 
-                id={el.id}
-                name={el.name}
-                onClickOpenDeleteModal={onClickOpenDeleteModal}
-                fetchMyChattingRooms={fetchMyChattingRooms}
-                />}
-              </>
+              <div>
+                <S.CurrentChattingRoom
+                  menuIndex={index}
+                  id={el.id}
+                  currentTab={currentTab}
+                  onClick={onClickSelectTab(index)}
+                  onContextMenu={onClickOpenDeleteModal}
+                  image={el.image}
+                >
+                  {el.image ? <img src={el.image} /> : <div>{el.name}</div>}
+                </S.CurrentChattingRoom>
+                {openDeleteModal === el.id && (
+                  <DeleteChattingRoom
+                    id={el.id}
+                    name={el.name}
+                    onClickOpenDeleteModal={onClickOpenDeleteModal}
+                    fetchMyChattingRooms={fetchMyChattingRooms}
+                  />
+                )}
+              </div>
             </Tooltip>
           ))}
         </S.ChattingRoomBox>
       </S.ChattingRoomWrapper>
-      
+
       {openCreate && (
         <CreateChattingRoom
           onClickOpenCreateModal={onClickOpenCreateModal}
@@ -135,7 +135,6 @@ export default function ChattingRoomList(props: any) {
           fetchMyChattingRooms={fetchMyChattingRooms}
         />
       )}
-      
     </>
   );
 }

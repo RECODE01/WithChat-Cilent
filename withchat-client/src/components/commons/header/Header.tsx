@@ -39,6 +39,7 @@ const HeaderSettings = styled.div`
 export default function Header() {
   const [openAlarm, setOpenAlarm] = useState(false);
   const [friendRequestList, setFriendRequestList] = useState<any>([]);
+  const [inviteList, setInviteList] = useState<any>([]);
   const [userData, setUserData] = useState<any>();
   const navigate = useNavigate();
 
@@ -54,6 +55,7 @@ export default function Header() {
         })
         .then((res) => {
           setFriendRequestList(res.data.friendRequestList);
+          setInviteList(res.data.inviteList);
           if (res.status === 201) setUserData(res.data.user);
         })
         .catch((err) => console.log(err));
@@ -102,6 +104,7 @@ export default function Header() {
       <AlarmModal
         openAlarm={openAlarm}
         friendRequestList={friendRequestList}
+        inviteList={inviteList}
         onClickModalAlarm={onClickModalAlarm}
       />
     </HeaderContainer>
