@@ -5,7 +5,7 @@ import { useState } from "react";
 import * as S from "./alarmModal.Styles";
 interface IPropsAlarmModal {
   openAlarm: boolean;
-  inviteList: string[];
+  inviteList: {}[];
   friendRequestList: string[];
   onClickModalAlarm: () => void;
 }
@@ -38,6 +38,29 @@ export default function AlarmModal(props: IPropsAlarmModal) {
       )
       .then(() => {
         alert("친구 요청을 수락했습니다.");
+      })
+      .catch((reason: any) => {
+        alert(reason.response.data.message);
+      });
+  };
+
+  const onClickEnterServer = async (e: any) => {
+    const inviteId = e.target.id;
+    await axios
+      .post(
+        `https://backend.withchat.site/chatting-server-invite/accept`,
+        {},
+        {
+          params: {
+            inviteId: inviteId,
+          },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
+      .then(() => {
+        alert("서버 초대을 수락했습니다.");
       })
       .catch((reason: any) => {
         alert(reason.response.data.message);
@@ -85,12 +108,12 @@ export default function AlarmModal(props: IPropsAlarmModal) {
           <S.ModalBackground>
             {props.friendRequestList.map((el: any) => (
               <S.ModalContentBox key={el.id}>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <img src="/LOGO_WC.png" alt="사람" height={"30px"} />
+                <S.Content>
+                  <img src="/LOGO_WC.png" alt="사람" />
                   {el.fromUser.nickName} ( {el.fromUser.email} )
-                </div>
+                </S.Content>
                 <S.ModalButton id={el.id} onClick={onClickFriendRequestAccept}>
-                  수락하기
+                  친구 수락하기
                 </S.ModalButton>
               </S.ModalContentBox>
             ))}
@@ -100,12 +123,14 @@ export default function AlarmModal(props: IPropsAlarmModal) {
           <S.ModalBackground>
             {props.inviteList.map((el: any) => (
               <S.ModalContentBox key={el.id}>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <img src="/LOGO_WC.png" alt="사람" height={"30px"} />
-                  {el.chattingRoom.name}
+                <S.Content>
+                  <img src={el.chattingServer.image} alt="채팅 서버 이미지" />
+                  {el.chattingServer.name}
                   <div style={{ color: "white" }}></div>
-                </div>
-                <S.ModalButton id={el.id}>수락하기</S.ModalButton>
+                </S.Content>
+                <S.ModalButton id={el.id} onClick={onClickEnterServer}>
+                  서버 입장하기
+                </S.ModalButton>
               </S.ModalContentBox>
             ))}
           </S.ModalBackground>

@@ -22,6 +22,8 @@ export default function MainPage() {
   const value = {
     channelId,
     chattings,
+    serverId,
+    setServerId,
     setChannelId,
     setChattings,
     chatHistory,

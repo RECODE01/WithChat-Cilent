@@ -1,9 +1,11 @@
 import { Box, Modal, Typography } from "@mui/material";
 import axios from "axios";
-import { ChangeEvent, useState } from "react";
+import { ChattingContext } from "pages/main";
+import { ChangeEvent, useContext, useState } from "react";
 import * as S from "./inviteFriendModal.Styles";
 
 export default function InviteFriendModal(props: any) {
+  const { serverId } = useContext(ChattingContext);
   const [keyword, setKeyword] = useState("");
   const [userList, setUserList] = useState([]);
 
@@ -53,7 +55,7 @@ export default function InviteFriendModal(props: any) {
         {
           params: {
             targetId: targetId,
-            chattingServerId: "5a360b2a-289e-40ae-a99d-3be8830b6ba2",
+            chattingServerId: serverId,
           },
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

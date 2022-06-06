@@ -86,7 +86,7 @@ export default function Header() {
         </button>
         <button onClick={onClickModalAlarm} style={{ marginLeft: "5px" }}>
           <Badge
-            badgeContent={friendRequestList.length}
+            badgeContent={friendRequestList.length + inviteList.length}
             overlap="circular"
             color="info"
           >

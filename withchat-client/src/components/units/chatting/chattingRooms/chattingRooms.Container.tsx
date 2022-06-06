@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useContext, useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import * as S from "./chattingRoom.Styles";
 import axios from "axios";
@@ -7,10 +7,12 @@ import CreateChattingRoom from "components/units/createChattingRoom/createChatti
 import DeleteChattingRoom from "components/units/deleteChattingRoom/deleteChattingRoom.container";
 import { io } from "socket.io-client";
 import { Tooltip } from "@mui/material";
+import { ChattingContext } from "pages/main";
 
 const socket = io("https://backend.withchat.site").connect();
 
 export default function ChattingRoomList(props: any) {
+  const { setServerId } = useContext(ChattingContext);
   const [currentTab, setCurrentTab] = useState(-10);
   const [chattingList, setChattingList] = useState<any>([]);
   const [openCreate, setOpenCreate] = useState<boolean>(false);
@@ -28,7 +30,7 @@ export default function ChattingRoomList(props: any) {
     (index: number) => (e: MouseEvent<HTMLDivElement>) => {
       setCurrentTab(index);
       props.setHome(false);
-      props.setServerId(e.currentTarget.id);
+      setServerId(e.currentTarget.id);
       socket.emit("hihi", userNickName, e.currentTarget.id);
     };
 
