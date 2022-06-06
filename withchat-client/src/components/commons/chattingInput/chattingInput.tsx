@@ -101,6 +101,9 @@ const ChattingInput = () => {
   },[channelId]);
 
   const chatting = async (e: any) => {
+    if(textInputRef.current?.querySelector("span")?.innerText || fileArr.length > 0){
+      
+    
     const accessToken = localStorage.getItem("accessToken");
     e.preventDefault();
 
@@ -128,9 +131,17 @@ const ChattingInput = () => {
         .catch((err) => console.log(err));
     }
     // - 석지웅 : 채팅
+
     const variables = {
       channelId,
       messages:
+      fileArr.length > 0 && !textInputRef.current?.querySelector("span")?.innerText? 
+      [
+        {
+          contents: JSON.stringify(fileArrUrls),
+          type: "image",
+        },
+      ] :
         fileArr.length > 0
           ? [
               {
@@ -161,7 +172,15 @@ const ChattingInput = () => {
         },
       }
     );
+    }
   };
+
+  const onkeyupChat = (e:any) => {
+    if (e.key === "Enter") {
+      const button:any = document.getElementById('chatting__button')
+      button.click()
+    }
+  }
 
   // 석지웅 : 채팅
 
@@ -247,7 +266,6 @@ const ChattingInput = () => {
 
   const onClickInput = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
-
     imageInputRef.current?.click();
   };
 
@@ -281,9 +299,9 @@ const ChattingInput = () => {
 
   return (
     <S.Container>
-      <button onClick={chatting}>클릭</button>
+      <button id="chatting__button" onClick={chatting}>클릭</button>
       {isGiphyOpen && <Giphy />}
-      <S.Form onSubmit={chatting}>
+      <S.Form>
         <S.Wrapper>
           {fileReaderArr && (
             <S.ImagesContainer>
@@ -311,9 +329,11 @@ const ChattingInput = () => {
               </S.ButtonIcon>
             </div>
             <S.TextInput
+              id="text__input"
               ref={textInputRef}
               onClick={onClickFocusTextarea}
               fileReaderArr={fileReaderArr}
+              onKeyUp={onkeyupChat}
             >
               {elements.map((data) => data)}
             </S.TextInput>
@@ -333,7 +353,6 @@ const ChattingInput = () => {
             </S.ButtonTools>
           </S.EditerContainer>
         </S.Wrapper>
-        <button>제출</button>
       </S.Form>
     </S.Container>
   );
