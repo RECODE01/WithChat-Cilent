@@ -16,7 +16,8 @@ export const GiphyWrapper = styled.div`
 
   z-index: 999999;
   position: absolute;
-  top: 0;
+  /* top: 0; */
+  bottom:0;
   /* bottom: 73px; */
 
   right: 0;

@@ -66,7 +66,7 @@ export default function Channel(props: any) {
     socket.emit("join", {
       roomId: e.currentTarget.id,
     });
-    socket.emit("comeOn", {
+    socket.emit("message", {
       roomId: e.currentTarget.id,
     });
   };
