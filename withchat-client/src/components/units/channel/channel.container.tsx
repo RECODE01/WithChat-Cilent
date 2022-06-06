@@ -79,10 +79,7 @@ export default function Channel(props: any) {
         },
       })
       .then((res) => {
-        console.log(res.data.channels);
         setChannelList(res.data.channels);
-        // console.log(channelList.length, 'channelList')
-        // console.log(res.data.channels.length, 'res.data')
       })
       .catch((err) => console.log(err));
   };

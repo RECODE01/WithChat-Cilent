@@ -45,7 +45,6 @@ export default function InviteFriendModal(props: any) {
 
   const onClickInviteFriend = async (e: any) => {
     const targetId = e.target.id;
-    console.log(targetId);
 
     await axios
       .post(

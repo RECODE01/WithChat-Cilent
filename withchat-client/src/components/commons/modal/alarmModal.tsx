@@ -68,45 +68,46 @@ export default function AlarmModal(props: IPropsAlarmModal) {
       style={{ alignItems: "center", justifyContent: "center" }}
     >
       <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          <button onClick={onClickMenu0}>받은 친구 신청</button>
-          <button onClick={onClickMenu1}>받은 서버 초대</button>
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+          style={{ display: "flex", justifyContent: "center" }}
+        >
+          <S.AlarmMenu onClick={onClickMenu0} selected={menu0}>
+            받은 친구 신청 ({props.friendRequestList.length})
+          </S.AlarmMenu>
+          <S.AlarmMenu onClick={onClickMenu1} selected={menu1}>
+            받은 서버 초대 ({props.inviteList.length})
+          </S.AlarmMenu>
         </Typography>
         {menu0 && (
           <S.ModalBackground>
-            <div>친구 요청 리스트</div>
-            {props.friendRequestList.length &&
-              props.friendRequestList.map((el: any) => (
-                <S.ModalContentBox key={el.id}>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <img src="/LOGO_WC.png" alt="사람" height={"30px"} />
-                    {el.fromUser.nickName} ( {el.fromUser.email} ) 친구 요청
-                    리스트
-                  </div>
-                  <S.ModalButton
-                    id={el.id}
-                    onClick={onClickFriendRequestAccept}
-                  >
-                    수락하기
-                  </S.ModalButton>
-                </S.ModalContentBox>
-              ))}
+            {props.friendRequestList.map((el: any) => (
+              <S.ModalContentBox key={el.id}>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <img src="/LOGO_WC.png" alt="사람" height={"30px"} />
+                  {el.fromUser.nickName} ( {el.fromUser.email} )
+                </div>
+                <S.ModalButton id={el.id} onClick={onClickFriendRequestAccept}>
+                  수락하기
+                </S.ModalButton>
+              </S.ModalContentBox>
+            ))}
           </S.ModalBackground>
         )}
         {menu1 && (
           <S.ModalBackground>
-            <div>서버 초대 리스트</div>
-            {props.inviteList.length &&
-              props.inviteList.map((el: any) => (
-                <S.ModalContentBox key={el.id}>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <img src="/LOGO_WC.png" alt="사람" height={"30px"} />
-                    {el.chattingRoom.name}
-                    <div style={{ color: "white" }}></div>
-                  </div>
-                  <S.ModalButton id={el.id}>수락하기</S.ModalButton>
-                </S.ModalContentBox>
-              ))}
+            {props.inviteList.map((el: any) => (
+              <S.ModalContentBox key={el.id}>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <img src="/LOGO_WC.png" alt="사람" height={"30px"} />
+                  {el.chattingRoom.name}
+                  <div style={{ color: "white" }}></div>
+                </div>
+                <S.ModalButton id={el.id}>수락하기</S.ModalButton>
+              </S.ModalContentBox>
+            ))}
           </S.ModalBackground>
         )}
       </Box>
