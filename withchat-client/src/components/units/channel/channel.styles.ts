@@ -20,7 +20,7 @@ export const Wrapper = styled.div`
   min-width: 240px;
   height: 100vh;
   background-color: #2f3136;
-  overflow: scroll;
+  /* overflow: scroll; */
   background: ${(props: { openCreateChannelModal: boolean }) =>
     props.openCreateChannelModal && "rgba(0, 0, 0, 0.8)"};
 

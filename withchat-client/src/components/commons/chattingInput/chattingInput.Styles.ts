@@ -4,6 +4,9 @@ export const Container = styled.div`
   /* width: 1176px; */
   width:100%;
   position: relative;
+  & #chatting__button{
+    display: none;
+  }
 `;
 
 export const Form = styled.form`
@@ -12,6 +15,7 @@ export const Form = styled.form`
   padding: 0px 16px;
   padding-bottom: 1px;
   margin-bottom: 27px;
+  text-align: left;
 `;
 
 export const Wrapper = styled.div`
