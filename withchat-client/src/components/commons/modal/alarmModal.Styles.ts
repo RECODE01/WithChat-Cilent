@@ -1,5 +1,9 @@
 import styled from "@emotion/styled";
 
+interface IProps {
+  selected: boolean;
+}
+
 export const ModalBackground = styled.div`
   width: 100%;
   height: 90%;
@@ -12,6 +16,14 @@ export const ModalBackground = styled.div`
   background-color: #202225;
   display: flex;
   flex-direction: column;
+`;
+
+export const AlarmMenu = styled.button`
+  all: unset;
+  color: ${(props: IProps) => (props.selected ? "#18A8F1" : "#fff")};
+  font-size: large;
+  cursor: pointer;
+  padding: 0 20px;
 `;
 
 export const ModalButton = styled.button`

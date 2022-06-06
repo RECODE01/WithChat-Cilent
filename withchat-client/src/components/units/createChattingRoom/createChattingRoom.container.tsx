@@ -32,9 +32,8 @@ export default function CreateChattingRoom(props: any) {
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data);
           alert(`${res.data.result.name} 채팅방이 개설되었어요!`);
-          props.fetchMyChattingRooms()
+          props.fetchMyChattingRooms();
           props.setOpenCreate(false);
         }
       })
