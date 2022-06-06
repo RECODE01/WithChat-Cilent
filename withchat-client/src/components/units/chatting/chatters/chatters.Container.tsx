@@ -1,44 +1,58 @@
 import * as S from "./chatters.Styles";
-import { MouseEvent, useState } from 'react';
-import UserMenu from '../../userMenu/userMenu.Container'
+import { MouseEvent, useContext, useEffect, useState } from "react";
+import UserMenu from "../../userMenu/userMenu.Container";
+import axios from "axios";
+import { ChattingContext } from "pages/main";
 export default function Chatters() {
-  const ChatterList = [
-    { id: "1", name: "최건", master: true, Online: true },
-    { id: "2", name: "김재민", master: false, Online: true },
-    { id: "3", name: "석지웅", master: false, Online: true },
-    { id: "4", name: "성기창", master: false, Online: true },
-    { id: "5", name: "김정환", master: false, Online: true },
-    { id: "6", name: "김재현", master: false, Online: true },
-    { id: "7", name: "강주은", master: false, Online: true },
-    { id: "8", name: "권지현", master: false, Online: false },
-    { id: "9", name: "김태훈", master: false, Online: false },
-    { id: "10", name: "김기범", master: false, Online: false },
-    { id: "11", name: "김지혜", master: false, Online: false },
-    { id: "12", name: "민경미", master: false, Online: false },
-    { id: "13", name: "박주비", master: false, Online: false },
-  ];
-  const [openUserInfo,setOpenUserInfo]=useState<string>('')
-  
-  const onClickOpenInfo=()=>(e:MouseEvent<HTMLDivElement>)=>{
-    setOpenUserInfo(e.currentTarget.id)
-    if(openUserInfo) setOpenUserInfo('')
-  }
+  const { serverId } = useContext(ChattingContext);
+  const [chatterList, setChatterList] = useState([]);
+  const [openUserInfo, setOpenUserInfo] = useState<string>("");
+
+  const onClickOpenInfo = () => (e: MouseEvent<HTMLDivElement>) => {
+    setOpenUserInfo(e.currentTarget.id);
+    if (openUserInfo) setOpenUserInfo("");
+  };
+
+  useEffect(() => {
+    axios
+      .get(`https://backend.withchat.site/chatting-server/${serverId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data.users);
+        setChatterList(res.data.users);
+      })
+      .catch((err) => console.log(err));
+  }, [serverId]);
+
   return (
     <S.DmWrapper>
       <S.DmBox>
-        <S.OnOffCategory>
-          Online - {ChatterList.filter((el) => el.Online === true).length}명
-        </S.OnOffCategory>
-        {ChatterList.filter((el) => el.Online === true).map((el, idx) => (
-          <S.DmItem key={el.id} onClick={onClickOpenInfo()} id={el.id}>
-            <S.DmItemImg src="/LOGO_WC.png" alt="이미지" />
+        <S.OnOffCategory>대화 상대</S.OnOffCategory>
+        {chatterList?.map((el: any) => (
+          <S.DmItem key={el?.id} onClick={onClickOpenInfo()} id={el?.id}>
+            <S.DmItemImg
+              src={el.picture ? el.picture : `/LOGO_WC.png`}
+              alt="이미지"
+              onError={(e) => {
+                e.currentTarget.src = "/LOGO_WC.png";
+              }}
+            />
             <p>
-              {el.name} {el.master && "👑"}
-            {openUserInfo === el.id && <UserMenu id={el.id} openUserInfo={openUserInfo} name={el.name}/>}
+              {el?.name}
+              {openUserInfo === el?.id && (
+                <UserMenu
+                  id={el?.id}
+                  openUserInfo={openUserInfo}
+                  name={el?.name}
+                />
+              )}
             </p>
           </S.DmItem>
         ))}
-        <S.OnOffCategory>
+        {/* <S.OnOffCategory>
           Offline - {ChatterList.filter((el) => el.Online === false).length}명
         </S.OnOffCategory>
         {ChatterList.filter((el) => el.Online === false).map((el) => (
@@ -48,7 +62,7 @@ export default function Chatters() {
               {el.name} {el.master && "👑"}
             </p>
           </S.DmItemOff>
-        ))}
+        ))} */}
       </S.DmBox>
     </S.DmWrapper>
   );

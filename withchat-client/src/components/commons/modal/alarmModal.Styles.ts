@@ -40,3 +40,14 @@ export const ModalContentBox = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
+export const Content = styled.div`
+  display: flex;
+  align-items: center;
+
+  img {
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+`;
