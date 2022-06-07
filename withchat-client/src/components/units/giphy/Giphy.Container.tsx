@@ -29,9 +29,7 @@ function Giphy() {
   const onChangeKeyword = (e: ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
-  const onClickSendGif = (e: MouseEvent<HTMLImageElement>) => {
-    console.log(e.currentTarget.src);
-  };
+  const onClickSendGif = (e: MouseEvent<HTMLImageElement>) => {};
   const onPressEnter = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") onClickSearch();
   };
@@ -43,7 +41,6 @@ function Giphy() {
       );
       setGifResult(result?.data.data);
     };
-
 
     randomGiphy();
   }, []);

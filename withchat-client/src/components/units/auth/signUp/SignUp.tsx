@@ -25,12 +25,12 @@ export default function SignUp() {
         },
       })
       .then((res) => {
-        if (res.status === 201) console.log(res);
+        if (res.status !== 201) alert(res.data.message);
         navigate("/");
         alert("메일이 발송되었습니다. 인증 후 로그인해주세요.");
       })
       .catch((reason: any) => {
-        alert(reason.response.data.message);
+        alert(reason.message);
       });
   };
 

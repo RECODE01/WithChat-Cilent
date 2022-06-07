@@ -17,12 +17,9 @@ import { io, Socket } from "socket.io-client";
 import * as S from "./chattingInput.Styles";
 import ImagesLI from "./ImagesLI";
 
-
-let socket:Socket 
+let socket: Socket;
 
 const ChattingInput = () => {
-
- 
   const textInputRef = useRef<HTMLDivElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const elementKey = useRef<number>(1);
@@ -45,142 +42,105 @@ const ChattingInput = () => {
   // 석지웅 : 채팅 기능
 
   const { setChatHistory } = useContext(ChattingContext);
-  const [userData, setUserData] = useState<any>();
-  useEffect(() => {
-    const fetchUserLoggedIn = () => {
-      const newAccessToken = localStorage.getItem("accessToken");
-      axios
-        .get(`https://backend.withchat.site/users/loggedInUser`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${newAccessToken}`,
-          },
-        })
-        .then((res) => {
-          if (res.status === 201) setUserData(res.data.user);
-        })
-        .catch((err) => console.log(err));
-    };
-    fetchUserLoggedIn();
-  }, []);
 
-  const user = userData?.nickName;
   const { channelId } = useContext(ChattingContext);
   // const [fileArrUrls, setFileArrUrls] = useState<any[]>([]);
-  const fileArrUrls:any[] =[]
+  const fileArrUrls: any[] = [];
 
   useEffect(() => {
-    socket = io("https://backend.withchat.site");
-    socket.on("message", (data: any) => {
-      console.log(data);
-       axios
-      .get("https://backend.withchat.site/channel-history/new", {
-        params: {
-          channelId,
-        },
-        headers: {
-          "Content-Type": "application/json",
-          // Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        setChatHistory((prev: any) => prev.concat(res.data.message));
-      });
+    // if (socket) return;
+    if (!socket === undefined) return;
+    socket = io("https://backend.withchat.site", {
+      transports: ["websocket"],
+      upgrade: false,
     });
-
     socket.on(channelId, (data: any) => {
-      console.log(data[0], data[1]);
-      console.log("소켓 연결 성공");
+      console.log(data);
+
+      setChatHistory((prev: any) => prev.concat(data));
     });
 
     return () => {
       socket.disconnect();
     };
-
-  },[channelId]);
+  }, [channelId]);
 
   const chatting = async (e: any) => {
-    if(textInputRef.current?.querySelector("span")?.innerText || fileArr.length > 0){
-      
-    
-    const accessToken = localStorage.getItem("accessToken");
-    e.preventDefault();
+    if (
+      textInputRef.current?.querySelector("span")?.innerText ||
+      fileArr.length > 0
+    ) {
+      const accessToken = localStorage.getItem("accessToken");
+      e.preventDefault();
 
-    socket.emit(
-      "message",
-      user,
-      "asdasdasdasd",
-      textInputRef.current?.querySelector("span")?.innerText
-    );
-
-    for (let i = 0; i < fileArr.length; i++) {
-      const formData = new FormData();
-      await formData.append("file", await fileArr[i]);
-      await axios
-        .post("https://backend.withchat.site/file/upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${accessToken}`,
-            accept: "application/json",
-          },
-        })
-        .then((res: any) => {
-          fileArrUrls.push(res.data.url)
-        })
-        .catch((err) => console.log(err));
-    }
-    // - 석지웅 : 채팅
-
-    const variables = {
-      channelId,
-      messages:
-      fileArr.length > 0 && !textInputRef.current?.querySelector("span")?.innerText? 
-      [
-        {
-          contents: JSON.stringify(fileArrUrls),
-          type: "image",
-        },
-      ] :
-        fileArr.length > 0
-          ? [
-              {
-                contents:
-                  textInputRef.current?.querySelector("span")?.innerText,
-                type: "text",
-              },
-              {
-                contents: JSON.stringify(fileArrUrls),
-                type: "image",
-              },
-            ]
-          : [
-              {
-                contents:
-                  textInputRef.current?.querySelector("span")?.innerText,
-                type: "text",
-              },
-            ],
-    };
-    await axios.post(
-      "https://backend.withchat.site/channel-history",
-      variables,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
+      for (let i = 0; i < fileArr.length; i++) {
+        const formData = new FormData();
+        await formData.append("file", await fileArr[i]);
+        await axios
+          .post("https://backend.withchat.site/file/upload", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${accessToken}`,
+              accept: "application/json",
+            },
+          })
+          .then((res: any) => {
+            fileArrUrls.push(res.data.url);
+          })
+          .catch();
       }
-    );
+      // - 석지웅 : 채팅
+
+      const variables = {
+        channelId,
+        messages:
+          fileArr.length > 0 &&
+          !textInputRef.current?.querySelector("span")?.innerText
+            ? [
+                {
+                  contents: JSON.stringify(fileArrUrls),
+                  type: "image",
+                },
+              ]
+            : fileArr.length > 0
+            ? [
+                {
+                  contents:
+                    textInputRef.current?.querySelector("span")?.innerText,
+                  type: "text",
+                },
+                {
+                  contents: JSON.stringify(fileArrUrls),
+                  type: "image",
+                },
+              ]
+            : [
+                {
+                  contents:
+                    textInputRef.current?.querySelector("span")?.innerText,
+                  type: "text",
+                },
+              ],
+      };
+      await axios.post(
+        "https://backend.withchat.site/channel-history",
+        variables,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
     }
   };
 
-  const onkeyupChat = (e:any) => {
+  const onkeyupChat = (e: any) => {
     if (e.key === "Enter") {
-      const button:any = document.getElementById('chatting__button')
-      button.click()
+      const button: any = document.getElementById("chatting__button");
+      button.click();
     }
-  }
+  };
 
   // 석지웅 : 채팅
 
@@ -221,7 +181,6 @@ const ChattingInput = () => {
   function onKeyDownSetValue(e: KeyboardEvent<HTMLSpanElement>) {
     const selection = window.getSelection();
     if (!selection || !textInputRef.current) return;
-    console.log("selection", selection);
     const { focusOffset, isCollapsed } = selection;
 
     const $target = e.target as HTMLSpanElement;
@@ -252,7 +211,6 @@ const ChattingInput = () => {
         deleteText(parseInt($target.dataset.index));
         $prevTarget.innerText += text;
         e.preventDefault();
-        console.log($prevTarget);
         elementFocus($prevTarget);
       }
     }
@@ -260,7 +218,6 @@ const ChattingInput = () => {
 
   const onClickOpenGiphy = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
-    console.log("onClickOpenGiphy");
     setIsGiphyOpen((prev) => !prev);
   };
 
@@ -277,7 +234,6 @@ const ChattingInput = () => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(files[i]);
       fileReader.onload = (data) => {
-        console.log(data);
         let readerUrl = "";
         if (typeof data.target?.result === "string") {
           readerUrl = data.target?.result;
@@ -293,13 +249,11 @@ const ChattingInput = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(elements);
-  }, [elements]);
-
   return (
     <S.Container>
-      <button id="chatting__button" onClick={chatting}>클릭</button>
+      <button id="chatting__button" onClick={chatting}>
+        클릭
+      </button>
       {isGiphyOpen && <Giphy />}
       <S.Form>
         <S.Wrapper>

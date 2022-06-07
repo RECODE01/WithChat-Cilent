@@ -1,4 +1,3 @@
-import { io } from "socket.io-client";
 import axios from "axios";
 import {
   ChangeEvent,
@@ -9,8 +8,6 @@ import {
 } from "react";
 import ChannelUI from "./channel.presenter";
 import { ChattingContext } from "pages/main";
-
-const socket = io("https://backend.withchat.site").connect();
 
 export default function Channel(props: any) {
   // const [roomId, setRoomId]=useState('')
@@ -61,14 +58,7 @@ export default function Channel(props: any) {
       .then((res) => {
         setChatHistory(res.data.message);
       })
-      .catch((err) => console.log(err));
-
-    socket.emit("join", {
-      roomId: e.currentTarget.id,
-    });
-    socket.emit("message", {
-      roomId: e.currentTarget.id,
-    });
+      .catch();
   };
 
   const fetchChannel = () => {
@@ -81,7 +71,7 @@ export default function Channel(props: any) {
       .then((res) => {
         setChannelList(res.data.channels);
       })
-      .catch((err) => console.log(err));
+      .catch();
   };
 
   const onClickCreateChannel = () => {
@@ -106,9 +96,7 @@ export default function Channel(props: any) {
           setOpenCreateChannelModal(false);
         }
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch();
   };
 
   useEffect(() => {
@@ -124,7 +112,7 @@ export default function Channel(props: any) {
         .then((res) => {
           if (res.status === 201) setAccessToken(newAccessToken);
         })
-        .catch((err) => console.log(err));
+        .catch();
     };
     fetchUserLoggedIn();
     fetchChannel();
