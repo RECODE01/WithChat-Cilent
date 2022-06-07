@@ -42,49 +42,22 @@ const ChattingInput = () => {
   // 석지웅 : 채팅 기능
 
   const { setChatHistory } = useContext(ChattingContext);
-  const [userData, setUserData] = useState<any>();
-  useEffect(() => {
-    const fetchUserLoggedIn = () => {
-      const newAccessToken = localStorage.getItem("accessToken");
-      axios
-        .get(`https://backend.withchat.site/users/loggedInUser`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${newAccessToken}`,
-          },
-        })
-        .then((res) => {
-          if (res.status === 201) setUserData(res.data.user);
-          console.log(res.data.user);
-        })
-        .catch();
-    };
-    fetchUserLoggedIn();
-  }, []);
 
   const { channelId } = useContext(ChattingContext);
   // const [fileArrUrls, setFileArrUrls] = useState<any[]>([]);
   const fileArrUrls: any[] = [];
 
   useEffect(() => {
-    socket = io("https://backend.withchat.site");
+    // if (socket) return;
+    if (!socket === undefined) return;
+    socket = io("https://backend.withchat.site", {
+      transports: ["websocket"],
+      upgrade: false,
+    });
     socket.on(channelId, (data: any) => {
       console.log(data);
-      axios
-        .get("https://backend.withchat.site/channel-history/new", {
-          params: {
-            channelId,
-          },
-          headers: {
-            "Content-Type": "application/json",
-            // Authorization: `Bearer ${accessToken}`,
-          },
-        })
-        .then((res) => {
-          console.log(Date());
-          console.log("data", res.data);
-          setChatHistory((prev: any) => prev.concat(res.data.message));
-        });
+
+      setChatHistory((prev: any) => prev.concat(data));
     });
 
     return () => {
@@ -99,13 +72,6 @@ const ChattingInput = () => {
     ) {
       const accessToken = localStorage.getItem("accessToken");
       e.preventDefault();
-
-      socket.emit(
-        "send",
-        userData,
-        channelId,
-        textInputRef.current?.querySelector("span")?.innerText
-      );
 
       for (let i = 0; i < fileArr.length; i++) {
         const formData = new FormData();
