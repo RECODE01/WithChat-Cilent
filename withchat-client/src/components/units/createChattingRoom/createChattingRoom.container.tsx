@@ -37,7 +37,7 @@ export default function CreateChattingRoom(props: any) {
           props.setOpenCreate(false);
         }
       })
-      .catch((err) => console.log(err));
+      .catch();
   };
 
   const onClickFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +58,7 @@ export default function CreateChattingRoom(props: any) {
         .then((res) => {
           if (res.status === 201) setRoomImage(res.data.url);
         })
-        .catch((err) => console.log(err));
+        .catch();
     }
   };
 

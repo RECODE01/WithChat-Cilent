@@ -24,7 +24,7 @@ export default function Chatters() {
         console.log(res.data.users);
         setChatterList(res.data.users);
       })
-      .catch((err) => console.log(err));
+      .catch();
   }, [serverId]);
 
   return (

@@ -58,7 +58,7 @@ export default function Header() {
           setInviteList(res.data.inviteList);
           if (res.status === 201) setUserData(res.data.user);
         })
-        .catch((err) => console.log(err));
+        .catch();
     };
     fetchUserLoggedIn();
   }, []);

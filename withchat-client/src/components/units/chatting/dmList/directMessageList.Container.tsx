@@ -20,7 +20,7 @@ export default function DirectMessageList() {
       .then((res) => {
         setFriendsList(res.data.friendList);
       })
-      .catch((err) => console.log(err));
+      .catch();
   }, []);
 
   const onClickModal = () => {
