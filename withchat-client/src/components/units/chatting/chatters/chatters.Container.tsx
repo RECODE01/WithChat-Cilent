@@ -5,7 +5,7 @@ import axios from "axios";
 import { ChattingContext } from "pages/main";
 export default function Chatters() {
   const { serverId } = useContext(ChattingContext);
-  const [chatterList, setChatterList] = useState([]);
+  const [chatterList, setChatterList] = useState<{}[]>([]);
   const [openUserInfo, setOpenUserInfo] = useState<string>("");
 
   const onClickOpenInfo = () => (e: MouseEvent<HTMLDivElement>) => {
