@@ -15,12 +15,12 @@ export default function Channel(props: any) {
   const { setChannelId, setChatHistory } = useContext(ChattingContext);
   const [channelClicked, setChannelClicked] = useState<string>("");
   const [accessToken, setAccessToken] = useState<string | null>("");
-  const [channelName, setChannelName] = useState("");
+  const [channelName, setChannelName] = useState<string>("");
   const [openCreateChannelModal, setOpenCreateChannelModal] =
     useState<boolean>(false);
   const [openInviteFriendModal, setOpenInviteFriendModal] =
     useState<boolean>(false);
-  const [channelList, setChannelList] = useState([]);
+  const [channelList, setChannelList] = useState<{}[]>([]);
 
   const onClickOpenCreateModal = () => {
     setOpenCreateChannelModal((prev) => !prev);
